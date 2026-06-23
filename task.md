@@ -11,3 +11,5 @@
 - `[x]` Create sample script file `episode_2_sample.md`
 - `[x]` Organize files into dedicated, copy-paste-friendly subdirectories (`custom_nodes/`, `input/`, `workflows/`, `scripts/`)
 - `[x]` Push latest commits to the GitHub remote repository (`git push -u origin master`)
+- `[x]` Fix parameter name mismatch (`denoise` -> `strength`) preventing Stage 2 video generation
+- `[x]` Add automatic video concatenation using ffmpeg to output a merged `final_storyboard.mp4`
