@@ -48,16 +48,24 @@ def get_base_prompt_workflow():
                 "vae_name": "ae.safetensors"
             }
         },
-        "2": {
-            "class_type": "OllamaGenerate",
+        "30": {
+            "class_type": "OllamaConnectivityV2",
             "inputs": {
-                "prompt": "",
-                "debug": "disable",
                 "url": "http://127.0.0.1:11434",
                 "model": "qwen3.6",
                 "keep_alive": 5,
+                "keep_alive_unit": "minutes"
+            }
+        },
+        "2": {
+            "class_type": "OllamaGenerateV2",
+            "inputs": {
+                "system": "",
+                "prompt": "",
+                "think": False,
+                "keep_context": False,
                 "format": "text",
-                "keep_context": True
+                "connectivity": ["30", 0]
             }
         },
         "3": {

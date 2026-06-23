@@ -1,6 +1,6 @@
 {
-  "last_node_id": 29,
-  "last_link_id": 31,
+  "last_node_id": 30,
+  "last_link_id": 32,
   "nodes": [
     {
       "id": 1,
@@ -73,7 +73,7 @@
     },
     {
       "id": 2,
-      "type": "OllamaGenerate",
+      "type": "OllamaGenerateV2",
       "pos": [750, 480],
       "size": [400, 300],
       "flags": {},
@@ -84,25 +84,51 @@
           "name": "prompt",
           "type": "STRING",
           "link": 31
+        },
+        {
+          "name": "connectivity",
+          "type": "OLLAMA_CONNECTIVITY",
+          "link": 32
         }
       ],
       "outputs": [
         {
-          "name": "STRING",
+          "name": "result",
           "type": "STRING",
-          "links": [5, 29],
+          "links": [
+            5,
+            29
+          ],
           "slot_index": 0
+        },
+        {
+          "name": "thinking",
+          "type": "STRING",
+          "links": null,
+          "slot_index": 1
+        },
+        {
+          "name": "context",
+          "type": "OLLAMA_CONTEXT",
+          "links": null,
+          "slot_index": 2
+        },
+        {
+          "name": "meta",
+          "type": "OLLAMA_META",
+          "links": null,
+          "slot_index": 3
         }
       ],
-      "properties": {},
+      "properties": {
+        "Node name for S&R": "OllamaGenerateV2"
+      },
       "widgets_values": [
-        null,
-        "disable",
-        "http://127.0.0.1:11434",
-        "qwen3.6",
-        5,
-        "text",
-        true
+        "",
+        "",
+        false,
+        false,
+        "text"
       ]
     },
     {
@@ -779,6 +805,35 @@
         null,
         "Scene 1: THE MONSTER UNDER THE BED"
       ]
+    },
+    {
+      "id": 30,
+      "type": "OllamaConnectivityV2",
+      "pos": [450, 750],
+      "size": [300, 120],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "connection",
+          "type": "OLLAMA_CONNECTIVITY",
+          "links": [
+            32
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "OllamaConnectivityV2"
+      },
+      "widgets_values": [
+        "http://127.0.0.1:11434",
+        "qwen3.6",
+        5,
+        "minutes"
+      ]
     }
   ],
   "links": [
@@ -812,7 +867,8 @@
     [28, 24, 1, 25, 1, "CLIP"],
     [29, 2, 0, 22, 1, "STRING"],
     [30, 28, 0, 29, 0, "STRING"],
-    [31, 29, 0, 2, 0, "STRING"]
+    [31, 29, 0, 2, 0, "STRING"],
+    [32, 30, 0, 2, 1, "OLLAMA_CONNECTIVITY"]
   ],
   "groups": [],
   "config": {},
