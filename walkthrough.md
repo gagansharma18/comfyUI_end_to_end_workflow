@@ -1,6 +1,6 @@
 # ComfyUI Stickman Animator (Z-Image-Turbo + LTX-2.3) - Walkthrough Guide
 
-We have created the finalized [workflow.json](file:///c:/Users/gagan/stash/workflow/workflow.json) file in the root of your project directory (`c:\Users\gagan\stash\workflow`). This guide explains how to import and use it in Comfy-Desktop.
+We have created the finalized [workflow.json](file:///c:/Users/gagan/stash/workflow/workflows/workflow.json) file in your project directory under `workflows/` (`c:\Users\gagan\stash\workflow\workflows\workflow.json`). This guide explains how to import and use it in Comfy-Desktop.
 
 ---
 
@@ -38,7 +38,7 @@ To make the workflow immediately runnable:
 ## 3. Running the Workflow
 
 1. **Load the Workflow**:
-   - Drag and drop [workflow.json](file:///c:/Users/gagan/stash/workflow/workflow.json) directly into your Comfy-Desktop web canvas.
+   - Drag and drop [workflow.json](file:///c:/Users/gagan/stash/workflow/workflows/workflow.json) directly into your Comfy-Desktop web canvas.
 2. **Setup Loaders**:
    - **CLIPLoader (Node 20)**: Loads `qwen_3_4b.safetensors` with its type set to `lumina2` (as it's a Qwen-based Lumina-Next model text encoder).
    - **CheckpointLoaderSimple (Node 26)**: Loads `ltx-2.3-22b-dev-fp8.safetensors`.

@@ -6,11 +6,17 @@ An end-to-end local AI animation pipeline for producing character-consistent sti
 
 ## 📁 Repository Structure
 
-* **`workflow.json`**: The complete, ready-to-run ComfyUI dual-stage animation workflow.
-* **`stixx_stories_nodes.py`**: Custom ComfyUI nodes developed for this project:
-  * `LoadTextFile`: Natively loads text or markdown story scripts from your ComfyUI input folder.
-  * `StixxStoriesPromptBuilder`: Segregates system prompt templates, loaded scripts, and a target scene selector into a clean formatting node.
-* **`episode_2.md`**: A full multi-scene script sample ("When Did We Start Being Afraid of the Dark?") to test the workflow.
+We have organized the files into standard ComfyUI folders to make copying and pasting them as straightforward as possible:
+
+* **`custom_nodes/`**: Custom ComfyUI python scripts.
+  * [stixx_stories_nodes.py](file:///c:/Users/gagan/stash/workflow/custom_nodes/stixx_stories_nodes.py): Custom nodes (`LoadTextFile`, `StixxStoriesPromptBuilder`) for script parsing and prompt compilation.
+* **`input/`**: Script files to load inside ComfyUI.
+  * [episode_2.md](file:///c:/Users/gagan/stash/workflow/input/episode_2.md): The full Episode 2 storyboard script.
+  * [episode_2_sample.md](file:///c:/Users/gagan/stash/workflow/input/episode_2_sample.md): A truncated script sample for testing.
+* **`workflows/`**: Packaged workflow JSON files.
+  * [workflow.json](file:///c:/Users/gagan/stash/workflow/workflows/workflow.json): Ready-to-import ComfyUI dual-stage animation workflow.
+* **`scripts/`**: Automation helper scripts.
+  * [run_pipeline.py](file:///c:/Users/gagan/stash/workflow/scripts/run_pipeline.py): CLI tool to batch process multi-scene scripts programmatically.
 * **`walkthrough.md`**: Complete, step-by-step setup guide for models, folders, and operations.
 * **`implementation_plan.md`**: Architectural design blueprint for the dual-stage pipeline.
 * **`task.md`**: Log of tasks accomplished during implementation.
@@ -20,18 +26,18 @@ An end-to-end local AI animation pipeline for producing character-consistent sti
 ## 🛠️ Setup Instructions
 
 ### 1. Install the Custom Nodes
-Copy the custom node script from the repository into your local ComfyUI installation:
+Copy the custom node script from the repository's `custom_nodes` folder directly into your local ComfyUI installation:
 ```bash
-# Copy stixx_stories_nodes.py directly into your ComfyUI custom_nodes directory
-copy stixx_stories_nodes.py C:\Users\gagan\AppData\Local\Comfy-Desktop\ComfyUI-Installs\ComfyUI\ComfyUI\custom_nodes\
+# Copy custom nodes folder content directly into ComfyUI custom_nodes
+copy custom_nodes\stixx_stories_nodes.py C:\Users\gagan\AppData\Local\Comfy-Desktop\ComfyUI-Installs\ComfyUI\ComfyUI\custom_nodes\
 ```
 *Note: Make sure to also install `ComfyUI-LTXVideo`, `comfyui-ollama`, and `ComfyUI-VideoHelperSuite` custom node packs via the ComfyUI Manager.*
 
-### 2. Copy the Script File
-Place your script markdown file inside your ComfyUI shared input folder:
+### 2. Copy the Script Files
+Place the script files from the repository's `input` folder inside your ComfyUI shared input folder:
 ```bash
-# Copy episode_2.md to the ComfyUI input directory
-copy episode_2.md "C:\Users\gagan\AppData\Local\Comfy-Desktop\ComfyUI-Shared\input\"
+# Copy script markdown files to the ComfyUI input directory
+copy input\episode_2*.md "C:\Users\gagan\AppData\Local\Comfy-Desktop\ComfyUI-Shared\input\"
 ```
 
 ### 3. Load Model Assets
@@ -50,14 +56,16 @@ Ensure the following files are downloaded and placed in your ComfyUI model direc
 
 ## 🎬 Running the Animator
 
-1. Open Comfy-Desktop and drag-and-drop `workflow.json` onto the canvas.
+### Option A: Using the ComfyUI Web Interface (Recommended)
+1. Open Comfy-Desktop and drag-and-drop `workflows/workflow.json` onto the canvas.
 2. In the **Load Text File 📄** node, select `episode_2.md` from the dropdown.
-3. In the **Stixx Stories Prompt Builder 🛠️** node, edit the `target_scene` field to specify which scene to render:
-   * E.g., set it to `Scene 1: THE MONSTER UNDER THE BED` or `Scene 2: ANCIENT PREDATORS OF THE PLEISTOCENE`.
-4. Click **Queue Prompt**. 
+3. In the **Stixx Stories Prompt Builder 🛠️** node, edit the `target_scene` field to specify which scene to render (e.g., `Scene 1: THE MONSTER UNDER THE BED` or `Scene 2: ANCIENT PREDATORS OF THE PLEISTOCENE`).
+4. Click **Queue Prompt**.
 
-The workflow will dynamically:
-1. Parse the script file on disk to extract the visual details of the chosen target scene.
-2. Direct the local Ollama LLM (Qwen 3.6) to build the visual starting frame prompt.
-3. Generate the character-consistent widescreen image (Stage 1).
-4. Mux the image into the LTX video latent, compile it with the LTX distill and alignment LoRAs at optimized parameters (CFG: 1.5, Steps: 12), and render the final animated video MP4!
+### Option B: Batch Processing via Command Line
+Run the automation pipeline script to process the entire script scene-by-scene:
+```bash
+python scripts/run_pipeline.py input/episode_2.md
+```
+All finished images and video clips will be saved under the `./output` folder automatically.
+
