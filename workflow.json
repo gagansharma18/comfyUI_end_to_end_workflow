@@ -1,6 +1,6 @@
 {
-  "last_node_id": 27,
-  "last_link_id": 29,
+  "last_node_id": 29,
+  "last_link_id": 31,
   "nodes": [
     {
       "id": 1,
@@ -74,12 +74,18 @@
     {
       "id": 2,
       "type": "OllamaGenerate",
-      "pos": [400, 100],
+      "pos": [750, 480],
       "size": [400, 300],
       "flags": {},
-      "order": 3,
+      "order": 5,
       "mode": 0,
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "link": 31
+        }
+      ],
       "outputs": [
         {
           "name": "STRING",
@@ -90,7 +96,7 @@
       ],
       "properties": {},
       "widgets_values": [
-        "System Prompt:\nYou are an AI storyboard designer for a cartoon series called \"Stixx Stories\".\nYour job is to read the user's script (which may contain multiple scenes/episodes) and a final instruction indicating which specific scene, timestamp, or topic to focus on.\nGenerate a single detailed visual prompt describing the static starting frame of that requested scene.\n\nApply these character consistency guidelines:\n- \"Bob\" is a simple stick figure with a large round white circular head, small black dot eyes, thin curved black eyebrows, and a simple line mouth. Bob has messy spikes of brown hair and wears a basic flat-colored blue t-shirt.\n- \"Alice\" is a simple stick figure with a large round white circular head, small black dot eyes, thin curved black eyebrows, and a simple line mouth. Alice has long straight black hair and wears a basic flat-colored red dress.\n\nAesthetic Guidelines:\n- Style: A stick figure animation in the style of an animated educational webcomic or YouTube explainer video. Thick hand-drawn wobbly black outlines, flat colors, clean minimalist background with a soft warm color palette (light beige and soft green). No 3D shading, no realism, no text, no watermarks, no speech bubbles.\n\nOutput exactly one paragraph of prompt describing the static starting frame. Do not output anything else.\n\n---\nUser Script:\n# Episode 2 — \"When Did We Start Being Afraid of the Dark?\"\nStixx Stories — Based on Real Facts\n\n## [0:00 – 0:15] — THE MONSTER UNDER THE BED\n[VISUAL: A stick figure child with a large round white head, thin black stick body/limbs, and simple blue pajamas, lying in a bed under a yellow blanket. The bedroom background has soft minimalist styling with a dark blue and violet pastel gradient. A spooky, clawed shadow creature with red eyes emerges from the closet, reaching toward the bed.]\nNARRATOR (V.O.): Right now, millions of people worldwide cannot sleep without a nightlight. We call it nyctophobia — the fear of the dark. But this isn't just a childhood phase. It is an ancient, evolutionary warning system coded directly into our DNA. So… when did the dark become our worst enemy?\n\n## [0:16 – 0:55] — ANCIENT PREDATORS OF THE PLEISTOCENE\n[VISUAL: A stick figure hominin with a large round white head, thin black stick body, and simple brown pelt loincloth, standing on a grassy savanna. The background is a minimalist landscape with a warm orange and yellow pastel sunset gradient. In the tall grass behind the hominin, a saber-toothed cat with glowing yellow eyes crouches ready to pounce. A comparison graphic shows a large round human eye next to a glowing cat eye reflecting light.]\nNARRATOR (V.O.): To find the answer, we have to travel back to the Pleistocene epoch, between 1.8 million and 200,000 years ago. Our early ancestors, like Homo erectus, lived in constant danger. And their biggest threat arrived the moment the sun set.\n\n## [0:56 – 1:35] — WONDERWERK CAVE AND THE SAFETY CIRCLE\n[VISUAL: Stick figures with large round white heads and thin black stick bodies sitting in a circle around a bright campfire. The background is a cave interior with soft grey and orange pastel gradients from the fire. Outside the circle of light, the background is pitch-black, filled with pairs of glowing red eyes.]\nNARRATOR (V.O.): Everything changed when humans domesticated fire. In Wonderwerk Cave, South Africa, archaeologists discovered evidence of controlled fire usage dating back 1.0 million years ago. Inside the ring of light lay warmth, safety, and community. Outside lay the unknown, cold, and hungry jaws.\n\n---\nTarget Scene to Generate:\nScene 1: THE MONSTER UNDER THE BED",
+        null,
         "disable",
         "http://127.0.0.1:11434",
         "qwen3.6",
@@ -717,6 +723,62 @@
         "ltx-2.3-22b-dev-fp8.safetensors",
         "default"
       ]
+    },
+    {
+      "id": 28,
+      "type": "LoadTextFile",
+      "pos": [50, 480],
+      "size": [300, 80],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [30],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadTextFile"
+      },
+      "widgets_values": [
+        "episode_2.md"
+      ]
+    },
+    {
+      "id": 29,
+      "type": "StixxStoriesPromptBuilder",
+      "pos": [380, 480],
+      "size": [340, 240],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "story_script",
+          "type": "STRING",
+          "link": 30
+        }
+      ],
+      "outputs": [
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "links": [31],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "StixxStoriesPromptBuilder"
+      },
+      "widgets_values": [
+        "System Prompt:\nYou are an AI storyboard designer for a cartoon series called \"Stixx Stories\".\nYour job is to read the user's script (which may contain multiple scenes/episodes) and a final instruction indicating which specific scene, timestamp, or topic to focus on.\nGenerate a single detailed visual prompt describing the static starting frame of that requested scene.\n\nApply these character consistency guidelines:\n- \"Bob\" is a simple stick figure with a large round white circular head, small black dot eyes, thin curved black eyebrows, and a simple line mouth. Bob has messy spikes of brown hair and wears a basic flat-colored blue t-shirt.\n- \"Alice\" is a simple stick figure with a large round white circular head, small black dot eyes, thin curved black eyebrows, and a simple line mouth. Alice has long straight black hair and wears a basic flat-colored red dress.\n\nAesthetic Guidelines:\n- Style: A stick figure animation in the style of an animated educational webcomic or YouTube explainer video. Thick hand-drawn wobbly black outlines, flat colors, clean minimalist background with a soft warm color palette (light beige and soft green). No 3D shading, no realism, no text, no watermarks, no speech bubbles.\n\nOutput exactly one paragraph of prompt describing the static starting frame. Do not output anything else.",
+        null,
+        "Scene 1: THE MONSTER UNDER THE BED"
+      ]
     }
   ],
   "links": [
@@ -748,7 +810,9 @@
     [26, 27, 0, 24, 1, "CLIP"],
     [27, 24, 0, 25, 0, "MODEL"],
     [28, 24, 1, 25, 1, "CLIP"],
-    [29, 2, 0, 22, 1, "STRING"]
+    [29, 2, 0, 22, 1, "STRING"],
+    [30, 28, 0, 29, 0, "STRING"],
+    [31, 29, 0, 2, 0, "STRING"]
   ],
   "groups": [],
   "config": {},
