@@ -7,6 +7,10 @@ import time
 import urllib.request
 import urllib.parse
 
+# Reconfigure stdout/stderr for UTF-8 to support console emojis on Windows
+sys.stdout.reconfigure(encoding='utf-8')
+sys.stderr.reconfigure(encoding='utf-8')
+
 # Hardcoded API configuration representing workflow.json
 COMFYUI_URL = "http://127.0.0.1:8188"
 OUTPUT_DIR = "./output"
@@ -191,7 +195,7 @@ def get_base_prompt_workflow():
                 "vae": ["26", 2],
                 "image": ["9", 0],
                 "latent": ["14", 0],
-                "denoise": 0.7,
+                "strength": 0.7,
                 "bypass": False
             }
         },
