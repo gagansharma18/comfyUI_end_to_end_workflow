@@ -44,7 +44,8 @@ To make the workflow immediately runnable:
    - **CheckpointLoaderSimple (Node 26)**: Loads `ltx-2.3-22b-dev-fp8.safetensors`.
    - **LTXV Audio Text Encoder Loader (Node 27)**: Loads `gemma_3_12B_it_fp4_mixed.safetensors` alongside `ltx-2.3-22b-dev-fp8.safetensors`. This loads the required LTX text encoder since the quantized FP8 checkpoint does not contain it.
 3. **Enter script details**:
-   - Locate the **Ollama Generate** node (Node 2) and paste your script in the `prompt` widget. The LLM will parse it to generate character visual details and actions based on the preloaded system instructions.
+   - Locate the **Ollama Generate** node (Node 2). You can paste your entire multi-scene script in the `prompt` widget under the `User Script:` section.
+   - At the very bottom of the text, edit the `Target Scene to Generate:` line to match the scene you want to render (e.g. `Scene 2: ANCIENT PREDATORS OF THE PLEISTOCENE` or `Scene 3: WONDERWERK CAVE AND THE SAFETY CIRCLE`). Ollama will automatically read the full script, extract only that requested scene, and generate its visual description.
 4. **Queue generation**:
    - Click **Queue Prompt**.
    - **Stage 1 (Z-Image-Turbo)** will render the character-consistent starting frame image using optimal fast settings (9 steps, 1.0 CFG, Euler/Simple).
