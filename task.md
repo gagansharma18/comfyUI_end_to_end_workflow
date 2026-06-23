@@ -7,3 +7,5 @@
 - `[x]` Add LTXAVTextEncoderLoader node to load gemma_3_12B_it_fp4_mixed.safetensors
 - `[x]` Verify JSON syntax and model connectivity
 - `[x]` Update walkthrough documentation with text encoder model instructions
+- `[x]` Build dynamic pipeline runner `run_pipeline.py` for batch processing multi-scene scripts
+- `[x]` Create sample script file `episode_2_sample.md`
