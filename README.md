@@ -62,10 +62,11 @@ Ensure the following files are downloaded and placed in your ComfyUI model direc
 3. In the **Stixx Stories Prompt Builder 🛠️** node, edit the `target_scene` field to specify which scene to render (e.g., `Scene 1: THE MONSTER UNDER THE BED` or `Scene 2: ANCIENT PREDATORS OF THE PLEISTOCENE`).
 4. Click **Queue Prompt**.
 
-### Option B: Batch Processing via Command Line
-Run the automation pipeline script to process the entire script scene-by-scene:
-```bash
-python scripts/run_pipeline.py input/episode_2.md
-```
-All finished images and video clips will be saved under the `./output` folder automatically.
+### Option B: Batch Processing & Full Movie Concatenation (Recommended for full scripts)
+To render all scenes from your script sequentially and automatically stitch them into a single movie:
+1. Make sure ComfyUI is running in the background.
+2. Double-click the [`run.bat`](file:///c:/Users/gagan/stash/workflow/run.bat) file in the root of the repository.
+3. Hit **Enter** to accept the default script (`input/episode_2.md`) or type the path to a different markdown script file.
+4. The runner will process each scene sequentially and output a final combined movie file to:
+   [`output/final_storyboard.mp4`](file:///c:/Users/gagan/stash/workflow/output/final_storyboard.mp4) (perfect for adding voice-over overlays).
 

@@ -20,7 +20,9 @@ The workspace has been organized into modular directories for clean version cont
 * **`workflows/`**
   * [`workflow.json`](file:///c:/Users/gagan/stash/workflow/workflows/workflow.json): The finalized ComfyUI dual-stage canvas configuration. Upgraded to V2 Ollama nodes.
 * **`scripts/`**
-  * [`run_pipeline.py`](file:///c:/Users/gagan/stash/workflow/scripts/run_pipeline.py): CLI automation runner to batch-process entire scripts programmatically. Upgraded to V2 Ollama nodes.
+  * [`run_pipeline.py`](file:///c:/Users/gagan/stash/workflow/scripts/run_pipeline.py): CLI automation runner that batch-processes scripts sequentially and stitches scenes together into a final merged video.
+* **Root Utility**
+  * [`run.bat`](file:///c:/Users/gagan/stash/workflow/run.bat): Double-clickable Windows batch file to automatically run the video generation pipeline using ComfyUI's virtual environment python.
 * **Documentation & Planning**
   * [`README.md`](file:///c:/Users/gagan/stash/workflow/README.md): Quick-start and directory overview.
   * [`walkthrough.md`](file:///c:/Users/gagan/stash/workflow/walkthrough.md): Comprehensive setup details including model downloads and folder paths.
@@ -35,7 +37,10 @@ The workspace has been organized into modular directories for clean version cont
    * Replaced the deprecated legacy `OllamaGenerate` node.
    * Installed **`OllamaConnectivityV2`** (managing local URL `http://127.0.0.1:11434` and model `qwen3.6`) and **`OllamaGenerateV2`** (handling system and user prompt inputs).
    * Upgraded both `workflows/workflow.json` and the API dictionary payload inside `scripts/run_pipeline.py`.
-3. **GitHub Sync**: All changes committed and pushed to:
+3. **Automatic Video Concatenation**:
+   * Modified `run_pipeline.py` to compile the generated scene videos using the bundled `ffmpeg` executable from ComfyUI's `imageio-ffmpeg` package.
+   * Added `run.bat` for easy, double-clickable script generation and merging.
+4. **GitHub Sync**: All changes committed and pushed to:
    `https://github.com/gagansharma18/comfyUI_end_to_end_workflow.git`
 
 ---
@@ -51,6 +56,6 @@ The workspace has been organized into modular directories for clean version cont
    * Choose `episode_2.md` in the **Load Text File 📄** node.
    * Set `target_scene` in **Stixx Stories Prompt Builder 🛠️** (e.g., `Scene 1: THE MONSTER UNDER THE BED`).
    * Queue prompt and verify image (Stage 1) and video (Stage 2) generation.
-4. **Run CLI Test**:
-   * Run the CLI batch processor: `python scripts/run_pipeline.py input/episode_2.md`
-   * Confirm that all scenes are processed sequentially and check output files in `./output`.
+4. **Run Batch/Stitching Test**:
+   * Double-click `run.bat` (or run `python scripts/run_pipeline.py input/episode_2.md` using the ComfyUI virtual env).
+   * Confirm that all scenes are processed sequentially, downloaded, and stitched together into `output/final_storyboard.mp4`.

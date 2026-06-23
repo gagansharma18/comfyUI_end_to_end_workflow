@@ -390,15 +390,62 @@ def main():
     scenes = parse_script(script_file)
     print(f"Found {len(scenes)} scenes to generate.")
     
+    video_paths = []
     for i, scene in enumerate(scenes):
         try:
-            run_scene(scene)
+            downloaded = run_scene(scene)
+            for path in downloaded:
+                if path.endswith(".mp4"):
+                    video_paths.append(path)
         except Exception as e:
             print(f"\n❌ Error processing Scene {scene['index']}: {e}")
             print("Skipping to next scene...")
             
     print("\n🎉 Full script animation execution complete!")
-    print(f"All saved assets are in the directory: {os.path.abspath(OUTPUT_DIR)}")
+    print(f"All saved individual assets are in the directory: {os.path.abspath(OUTPUT_DIR)}")
+
+    if len(video_paths) > 1:
+        print("\n🎬 Concatenating all generated scenes into a final movie...")
+        try:
+            import subprocess
+            # Try to get ffmpeg path from imageio_ffmpeg
+            try:
+                import imageio_ffmpeg
+                ffmpeg_path = imageio_ffmpeg.get_ffmpeg_exe()
+            except ImportError:
+                ffmpeg_path = "ffmpeg"
+                
+            # Write files list
+            list_path = os.path.join(OUTPUT_DIR, "video_list.txt")
+            with open(list_path, "w", encoding="utf-8") as f:
+                for path in video_paths:
+                    abs_path = os.path.abspath(path).replace("\\", "/")
+                    f.write(f"file '{abs_path}'\n")
+            
+            final_output_path = os.path.join(OUTPUT_DIR, "final_storyboard.mp4")
+            cmd = [
+                ffmpeg_path,
+                "-y",
+                "-f", "concat",
+                "-safe", "0",
+                "-i", list_path,
+                "-c", "copy",
+                final_output_path
+            ]
+            
+            # Execute ffmpeg command
+            result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            if result.returncode == 0:
+                print(f"🎉 Success! Combined video saved to: {os.path.abspath(final_output_path)}")
+            else:
+                print(f"❌ Error combining videos: {result.stderr}")
+                
+            # Clean up text file
+            if os.path.exists(list_path):
+                os.remove(list_path)
+                
+        except Exception as combine_err:
+            print(f"❌ Failed to combine videos: {combine_err}")
 
 if __name__ == "__main__":
     import random
