@@ -1,6 +1,6 @@
 {
   "last_node_id": 27,
-  "last_link_id": 28,
+  "last_link_id": 29,
   "nodes": [
     {
       "id": 1,
@@ -84,13 +84,13 @@
         {
           "name": "STRING",
           "type": "STRING",
-          "links": [5],
+          "links": [5, 29],
           "slot_index": 0
         }
       ],
       "properties": {},
       "widgets_values": [
-        "System Prompt:\nYou are an AI storyboard designer for a cartoon series called \"Stixx Stories\".\nYour job is to read the user's script (narration and scene actions) and generate a single detailed visual prompt describing the static starting frame of the scene.\n\nApply these character consistency guidelines:\n- \"Bob\" is a simple stick figure with a large round white circular head, small black dot eyes, thin curved black eyebrows, and a simple line mouth. Bob has messy spikes of brown hair and wears a basic flat-colored blue t-shirt.\n- \"Alice\" is a simple stick figure with a large round white circular head, small black dot eyes, thin curved black eyebrows, and a simple line mouth. Alice has long straight black hair and wears a basic flat-colored red dress.\n\nAesthetic Guidelines:\n- Style: A stick figure animation in the style of an animated educational webcomic or YouTube explainer video. Thick hand-drawn wobbly black outlines, flat colors, clean minimalist background with a soft warm color palette (light beige and soft green). No 3D shading, no realism, no text, no watermarks, no speech bubbles.\n\nRead the user's script and output exactly one paragraph of prompt describing the static starting frame of the scene. Do not output anything else.\n\nUser Script:\n[Visual: Bob is standing in the park, pointing at a giant floating banana. He is extremely shocked.\nNarration: Bob could not believe his eyes. A giant banana was hovering right above the playground.]",
+        "System Prompt:\nYou are an AI storyboard designer for a cartoon series called \"Stixx Stories\".\nYour job is to read the user's script (narration and scene actions) and generate a single detailed visual prompt describing the static starting frame of the scene.\n\nApply these character consistency guidelines:\n- \"Bob\" is a simple stick figure with a large round white circular head, small black dot eyes, thin curved black eyebrows, and a simple line mouth. Bob has messy spikes of brown hair and wears a basic flat-colored blue t-shirt.\n- \"Alice\" is a simple stick figure with a large round white circular head, small black dot eyes, thin curved black eyebrows, and a simple line mouth. Alice has long straight black hair and wears a basic flat-colored red dress.\n\nAesthetic Guidelines:\n- Style: A stick figure animation in the style of an animated educational webcomic or YouTube explainer video. Thick hand-drawn wobbly black outlines, flat colors, clean minimalist background with a soft warm color palette (light beige and soft green). No 3D shading, no realism, no text, no watermarks, no speech bubbles.\n\nRead the user's script and output exactly one paragraph of prompt describing the static starting frame of the scene. Do not output anything else.\n\nUser Script:\n[Visual: A stick figure child with a large round white head, thin black stick body/limbs, and simple blue pajamas, lying in a bed under a yellow blanket. The bedroom background has soft minimalist styling with a dark blue and violet pastel gradient. A spooky, clawed shadow creature with red eyes emerges from the closet, reaching toward the bed.]\n[Narration: Right now, millions of people worldwide cannot sleep without a nightlight. We call it nyctophobia — the fear of the dark. But this isn't just a childhood phase. It is an ancient, evolutionary warning system coded directly into our DNA. So… when did the dark become our worst enemy?]",
         "disable",
         "http://127.0.0.1:11434",
         "qwen3.6",
@@ -416,6 +416,14 @@
           "name": "clip",
           "type": "CLIP",
           "link": 13
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 29,
+          "widget": {
+            "name": "text"
+          }
         }
       ],
       "outputs": [
@@ -428,7 +436,7 @@
       ],
       "properties": {},
       "widgets_values": [
-        "A simple stick figure cartoon animation. The stickman is walking happily in a minimalist forest, simple flat colors, outline art, smooth movement."
+        ""
       ]
     },
     {
@@ -604,8 +612,8 @@
       "widgets_values": [
         2984572985,
         "randomize",
-        20,
-        3.0,
+        12,
+        1.5,
         "euler",
         "karras",
         1.0
@@ -739,7 +747,8 @@
     [25, 26, 0, 24, 0, "MODEL"],
     [26, 27, 0, 24, 1, "CLIP"],
     [27, 24, 0, 25, 0, "MODEL"],
-    [28, 24, 1, 25, 1, "CLIP"]
+    [28, 24, 1, 25, 1, "CLIP"],
+    [29, 2, 0, 22, 1, "STRING"]
   ],
   "groups": [],
   "config": {},
