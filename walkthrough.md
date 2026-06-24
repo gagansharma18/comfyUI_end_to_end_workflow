@@ -48,8 +48,11 @@ To make the workflow immediately runnable:
      `C:\Users\gagan\AppData\Local\Comfy-Desktop\ComfyUI-Shared\input\`
      *(We have pre-saved `episode_2.md` there for you!)*
    - Locate the **Load Text File 📄** node (Node 28) and click Refresh in ComfyUI, then select your file name from the dropdown.
-   - Locate the **Stixx Stories Prompt Builder 🛠️** node (Node 29). Type the name/index of the scene you want to generate in the `target_scene` text box (e.g., `Scene 1: THE MONSTER UNDER THE BED` or `Scene 2: ANCIENT PREDATORS OF THE PLEISTOCENE`).
-4. **Queue generation**:
-   - Click **Queue Prompt**.
-   - **Stage 1 (Z-Image-Turbo)** will render the character-consistent starting frame image using optimal fast settings (9 steps, 1.0 CFG, Euler/Simple).
-   - **Stage 2 (LTX-Video 2.3)** will inject the starting frame into the latent video space, load the FP8 model with sequential LoRAs applied, sample the motion, and output the final MP4/GIF video in the **Video Combine** node.
+    - Locate the **Stixx Stories Script Parser 📋** node (Node 29). Make sure the `scene_index` widget is set to `1` and set its generation control dropdown from `fixed` to **`increment`**.
+4. **Queue Generation (Sequential Batch)**:
+    - To generate all scenes sequentially, look at the ComfyUI Queue panel and set the **Batch Count** to the number of scenes in your script (e.g. `3` for testing).
+    - Click **Queue Prompt**.
+    - ComfyUI will run the workflow sequentially, incrementing the scene index on each run.
+    - **Stage 1 (Z-Image-Turbo)** will render the starting frame.
+    - **Stage 2 (LTX-Video 2.3)** will animate the frame.
+    - **VHS_VideoCombine** (Node 18) will save the output video for each scene with a dynamic filename prefix (e.g. `scene_1_THE_MONSTER_UNDER_THE_BED_XXXX.mp4`).
