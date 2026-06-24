@@ -1,0 +1,1016 @@
+Trace of c:/Users/gagan/stash/workflow/example_workflow/251101_MICKMUMPITZ_SCENE-BUILDER_1-1.json:
+Total nodes: 174
+
+=== NODES ===
+Node 190: Type=SetNode, Title=Set_model
+  Widgets: ['model']
+  Inputs:
+    - MODEL (type: MODEL) linked via ID 2913
+  Outputs:
+    - * (type: *) linked to IDs None
+
+Node 191: Type=SetNode, Title=Set_clip
+  Widgets: ['clip']
+  Inputs:
+    - CLIP (type: CLIP) linked via ID 720
+  Outputs:
+    - * (type: *) linked to IDs None
+
+Node 192: Type=SetNode, Title=Set_vae
+  Widgets: ['vae']
+  Inputs:
+    - VAE (type: VAE) linked via ID 546
+  Outputs:
+    - * (type: *) linked to IDs None
+
+Node 193: Type=GetNode, Title=Get_clip
+  Widgets: ['clip']
+  Outputs:
+    - CLIP (type: CLIP) linked to IDs [1764]
+
+Node 200: Type=EmptySD3LatentImage, Title=EmptySD3LatentImage
+  Widgets: [1920, 1088, 1]
+  Inputs:
+    - width (type: INT) linked via ID 2044
+    - height (type: INT) linked via ID 2043
+  Outputs:
+    - LATENT (type: LATENT) linked to IDs [2468]
+
+Node 202: Type=GetNode, Title=Get_vae
+  Widgets: ['vae']
+  Outputs:
+    - VAE (type: VAE) linked to IDs [1767, 2472]
+
+Node 206: Type=GetNode, Title=Get_model
+  Widgets: ['model']
+  Outputs:
+    - MODEL (type: MODEL) linked to IDs [2465]
+
+Node 208: Type=SaveImage, Title=SaveImage
+  Widgets: ['ComfyUI']
+  Inputs:
+    - images (type: IMAGE) linked via ID 2479
+    - filename_prefix (type: STRING) linked via ID 2708
+
+Node 213: Type=LoadImage, Title=IMAGE 1
+  Widgets: ['a_candid_portrait_of_a_woman_with_natural_makeup_showcasing_her_unique_facial_features_captured_in__5837qamrn99y6vyf1nee...', 'image']
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2010]
+    - MASK (type: MASK) linked to IDs None
+
+Node 320: Type=Label (rgthree), Title=by Mickmumpitz
+
+Node 321: Type=Label (rgthree), Title=Modular Groups
+
+Node 323: Type=Label (rgthree), Title=Input / Output / Model Loaders
+
+Node 324: Type=Reroute, Title=Reroute
+  Inputs:
+    -  (type: *) linked via ID None
+  Outputs:
+    -  (type: *) linked to IDs None
+
+Node 329: Type=Reroute, Title=Reroute
+  Inputs:
+    -  (type: *) linked via ID None
+  Outputs:
+    -  (type: *) linked to IDs None
+
+Node 331: Type=Reroute, Title=Reroute
+  Inputs:
+    -  (type: *) linked via ID None
+  Outputs:
+    -  (type: *) linked to IDs None
+
+Node 332: Type=Label (rgthree), Title=Important Notes!
+
+Node 333: Type=Label (rgthree), Title=SCENE BUILDER 1.1
+
+Node 360: Type=VAELoader, Title=VAELoader
+  Widgets: ['qwen\\qwen_image_vae.safetensors']
+  Outputs:
+    - VAE (type: VAE) linked to IDs [546]
+
+Node 362: Type=CLIPLoader, Title=CLIPLoader
+  Widgets: ['qwen\\qwen_2.5_vl_7b_fp8_scaled.safetensors', 'qwen_image', 'cpu']
+  Outputs:
+    - CLIP (type: CLIP) linked to IDs [720]
+
+Node 546: Type=LoaderGGUF, Title=LoaderGGUF
+  Widgets: ['gguf\\Qwen-Image-Edit-2509-Q5_0.gguf']
+  Outputs:
+    - MODEL (type: MODEL) linked to IDs [1623]
+
+Node 547: Type=LoraLoaderModelOnly, Title=LoraLoaderModelOnly
+  Widgets: ['qwen\\Qwen-Image-Lightning-4steps-V2.0.safetensors', 1]
+  Inputs:
+    - model (type: MODEL) linked via ID 1620
+  Outputs:
+    - MODEL (type: MODEL) linked to IDs [2000, 2387, 2912]
+
+Node 550: Type=Note, Title=Note
+  Widgets: ['https://huggingface.co/QuantStack/Qwen-Image-Edit-2509-GGUF/tree/main\n\n📁 ComfyUI\\models\\unet\\gguf']
+
+Node 551: Type=Note, Title=Note
+  Widgets: ['https://huggingface.co/lightx2v/Qwen-Image-Lightning/blob/main/Qwen-Image-Lightning-4steps-V1.0-bf16.safetensors\n\n📁 Comf...']
+
+Node 568: Type=Note, Title=Note
+  Widgets: ['https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/tree/main/split_files/text_encoders\n\n📁 ComfyUI\\models\\clip\\qwen']
+
+Node 569: Type=Note, Title=Note
+  Widgets: ['https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/tree/main/split_files/vae\n\n📁 ComfyUI\\models\\vae']
+
+Node 575: Type=Label (rgthree), Title=→
+
+Node 576: Type=Label (rgthree), Title=→
+
+Node 578: Type=Label (rgthree), Title=→
+
+Node 579: Type=Label (rgthree), Title=→
+
+Node 844: Type=PrimitiveInt, Title=STEPS
+  Widgets: [4, 'fixed']
+  Outputs:
+    - INT (type: INT) linked to IDs [1216]
+
+Node 845: Type=SetNode, Title=Set_steps
+  Widgets: ['steps']
+  Inputs:
+    - INT (type: INT) linked via ID 1216
+  Outputs:
+    - * (type: *) linked to IDs None
+
+Node 846: Type=GetNode, Title=Get_steps
+  Widgets: ['steps']
+  Outputs:
+    - INT (type: INT) linked to IDs [2470]
+
+Node 850: Type=PrimitiveFloat, Title=CFG
+  Widgets: [1]
+  Outputs:
+    - FLOAT (type: FLOAT) linked to IDs [1219]
+
+Node 851: Type=SetNode, Title=Set_cfg
+  Widgets: ['cfg']
+  Inputs:
+    - FLOAT (type: FLOAT) linked via ID 1219
+  Outputs:
+    - * (type: *) linked to IDs None
+
+Node 853: Type=GetNode, Title=Get_cfg
+  Widgets: ['cfg']
+  Outputs:
+    - FLOAT (type: FLOAT) linked to IDs [2471]
+
+Node 988: Type=Reroute, Title=Reroute
+  Inputs:
+    -  (type: *) linked via ID None
+  Outputs:
+    -  (type: *) linked to IDs None
+
+Node 989: Type=Label (rgthree), Title=References
+
+Node 1114: Type=CFGNorm, Title=CFGNorm
+  Widgets: [1]
+  Inputs:
+    - model (type: MODEL) linked via ID 1618
+  Outputs:
+    - patched_model (type: MODEL) linked to IDs [1620]
+
+Node 1115: Type=ModelSamplingAuraFlow, Title=ModelSamplingAuraFlow
+  Widgets: [3]
+  Inputs:
+    - model (type: MODEL) linked via ID 1623
+  Outputs:
+    - MODEL (type: MODEL) linked to IDs [1618]
+
+Node 1199: Type=TextEncodeQwenImageEditPlus, Title=TextEncodeQwenImageEditPlus
+  Widgets: ['The characters are at a table in a restaurant. They are sitting opposite of each other. A cinematic movie scene with pro...']
+  Inputs:
+    - clip (type: CLIP) linked via ID 1764
+    - vae (type: VAE) linked via ID 1767
+    - image1 (type: IMAGE) linked via ID 2438
+    - image2 (type: IMAGE) linked via ID 2775
+    - image3 (type: IMAGE) linked via ID 2458
+  Outputs:
+    - CONDITIONING (type: CONDITIONING) linked to IDs [2466, 2467]
+
+Node 1284: Type=LoadImage, Title=IMAGE 2
+  Widgets: ['a_unique-looking_fashion_model_with_distinct_facial_features_medium_close-up_shot_professional_stud_6dyrfa5j5bs6mo5guhf3...', 'image']
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [1997]
+    - MASK (type: MASK) linked to IDs None
+
+Node 1285: Type=LoadImage, Title=IMAGE 3
+  Widgets: ['a_cozy_modern_five_star_restaurant_with_glass_windows_overlooking_a_foggy_pine_forest_natural_mount_k69q6wfb2faiwi2cx42s...', 'image']
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2002]
+    - MASK (type: MASK) linked to IDs None
+
+Node 1286: Type=ImageScaleToTotalPixels, Title=ImageScaleToTotalPixels
+  Widgets: ['lanczos', 1]
+  Inputs:
+    - image (type: IMAGE) linked via ID 2010
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2072]
+
+Node 1287: Type=ImageScaleToTotalPixels, Title=ImageScaleToTotalPixels
+  Widgets: ['lanczos', 1]
+  Inputs:
+    - image (type: IMAGE) linked via ID 1997
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2439]
+
+Node 1288: Type=SaveImage, Title=SaveImage
+  Widgets: ['ComfyUI']
+  Inputs:
+    - images (type: IMAGE) linked via ID 2480
+
+Node 1289: Type=LoraLoaderModelOnly, Title=LoraLoaderModelOnly
+  Widgets: ['qwen\\qwen-boreal-general-discrete-low-rank.safetensors', 0.85]
+  Inputs:
+    - model (type: MODEL) linked via ID 2000
+  Outputs:
+    - MODEL (type: MODEL) linked to IDs [2255]
+
+Node 1290: Type=ImageScaleToTotalPixels, Title=ImageScaleToTotalPixels
+  Widgets: ['lanczos', 1]
+  Inputs:
+    - image (type: IMAGE) linked via ID 2002
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2074]
+
+Node 1292: Type=LoadImage, Title=IMAGE 4 POSE
+  Widgets: ['istockphoto-1369129270-612x612.jpg', 'image']
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2769]
+    - MASK (type: MASK) linked to IDs None
+
+Node 1293: Type=ImageScaleToTotalPixels, Title=ImageScaleToTotalPixels
+  Widgets: ['lanczos', 1]
+  Inputs:
+    - image (type: IMAGE) linked via ID 2013
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2591, 2911]
+
+Node 1294: Type=DWPreprocessor, Title=DWPreprocessor
+  Widgets: ['enable', 'enable', 'enable', 1024, 'yolox_l.onnx', 'dw-ll_ucoco_384_bs5.torchscript.pt', 'disable']
+  Inputs:
+    - image (type: IMAGE) linked via ID 2769
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2013, 2770]
+    - POSE_KEYPOINT (type: POSE_KEYPOINT) linked to IDs None
+
+Node 1295: Type=PreviewImage, Title=POSE PREVIEW
+  Inputs:
+    - images (type: IMAGE) linked via ID 2591
+
+Node 1297: Type=ImageResizeKJv2, Title=ImageResizeKJv2
+  Widgets: [1920, 1080, 'nearest-exact', 'resize', '0, 0, 0', 'center', 2, 'cpu', '<tr><td>Output: </td><td><b>1</b> x <b>1920</b> x <b>1080 | 23.73MB</b></td></tr>']
+  Inputs:
+    - image (type: IMAGE) linked via ID 2770
+    - mask (type: MASK) linked via ID None
+    - width (type: INT) linked via ID 2035
+    - height (type: INT) linked via ID 2036
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs []
+    - width (type: INT) linked to IDs None
+    - height (type: INT) linked to IDs None
+    - mask (type: MASK) linked to IDs None
+
+Node 1298: Type=PrimitiveInt, Title=WIDTH
+  Widgets: [1920, 'fixed']
+  Outputs:
+    - INT (type: INT) linked to IDs [2030]
+
+Node 1299: Type=PrimitiveInt, Title=HEIGHT
+  Widgets: [1080, 'fixed']
+  Outputs:
+    - INT (type: INT) linked to IDs [2031]
+
+Node 1300: Type=SetNode, Title=Set_Width
+  Widgets: ['Width']
+  Inputs:
+    - INT (type: INT) linked via ID 2030
+  Outputs:
+    - * (type: *) linked to IDs None
+
+Node 1301: Type=SetNode, Title=Set_Height
+  Widgets: ['Height']
+  Inputs:
+    - INT (type: INT) linked via ID 2031
+  Outputs:
+    - * (type: *) linked to IDs None
+
+Node 1302: Type=GetNode, Title=Get_Width
+  Widgets: ['Width']
+  Outputs:
+    - INT (type: INT) linked to IDs [2035]
+
+Node 1306: Type=GetNode, Title=Get_Height
+  Widgets: ['Height']
+  Outputs:
+    - INT (type: INT) linked to IDs [2036]
+
+Node 1310: Type=GetNode, Title=Get_Width
+  Widgets: ['Width']
+  Outputs:
+    - INT (type: INT) linked to IDs [2044]
+
+Node 1311: Type=GetNode, Title=Get_Height
+  Widgets: ['Height']
+  Outputs:
+    - INT (type: INT) linked to IDs [2043]
+
+Node 1312: Type=SetNode, Title=Set_OUT_01
+  Widgets: ['OUT_01']
+  Inputs:
+    - IMAGE (type: IMAGE) linked via ID 2481
+  Outputs:
+    - * (type: *) linked to IDs []
+
+Node 1330: Type=Label (rgthree), Title=→
+
+Node 1331: Type=Label (rgthree), Title=→
+
+Node 1334: Type=SetNode, Title=Set_IMG_01
+  Widgets: ['IMG_01']
+  Inputs:
+    - IMAGE (type: IMAGE) linked via ID 2072
+  Outputs:
+    - * (type: *) linked to IDs []
+
+Node 1336: Type=SetNode, Title=Set_IMG_03
+  Widgets: ['IMG_03']
+  Inputs:
+    - IMAGE (type: IMAGE) linked via ID 2074
+  Outputs:
+    - * (type: *) linked to IDs []
+
+Node 1342: Type=ImageConcatMulti, Title=ImageConcatMulti
+  Widgets: [2, 'right', True, None]
+  Inputs:
+    - image_1 (type: IMAGE) linked via ID 2460
+    - image_2 (type: IMAGE) linked via ID 2774
+  Outputs:
+    - images (type: IMAGE) linked to IDs [2312]
+
+Node 1343: Type=PreviewImage, Title=PreviewImage
+  Inputs:
+    - images (type: IMAGE) linked via ID 2313
+
+Node 1482: Type=LoraLoaderModelOnly, Title=LoraLoaderModelOnly
+  Widgets: ['qwen\\qwen-studio-realism.safetensors', 0.7]
+  Inputs:
+    - model (type: MODEL) linked via ID 2255
+  Outputs:
+    - MODEL (type: MODEL) linked to IDs [2913, 2921]
+
+Node 1483: Type=LoraLoaderModelOnly, Title=LoraLoaderModelOnly
+  Widgets: ['qwen\\InSubject-0.5.safetensors', 0.7]
+  Inputs:
+    - model (type: MODEL) linked via ID 2912
+  Outputs:
+    - MODEL (type: MODEL) linked to IDs []
+
+Node 1515: Type=ImageConcatMulti, Title=ImageConcatMulti
+  Widgets: [2, 'down', True, None]
+  Inputs:
+    - image_1 (type: IMAGE) linked via ID 2914
+    - image_2 (type: IMAGE) linked via ID 2312
+    - image_3 (type: IMAGE) linked via ID None
+  Outputs:
+    - images (type: IMAGE) linked to IDs [2313, 2462]
+
+Node 1518: Type=GetNode, Title=Get_vae
+  Widgets: ['vae']
+  Outputs:
+    - VAE (type: VAE) linked to IDs [2336, 2364]
+
+Node 1519: Type=GetNode, Title=Get_cfg
+  Widgets: ['cfg']
+  Outputs:
+    - FLOAT (type: FLOAT) linked to IDs [2333]
+
+Node 1520: Type=GetNode, Title=Get_steps
+  Widgets: ['steps']
+  Outputs:
+    - INT (type: INT) linked to IDs [2332]
+
+Node 1521: Type=GetNode, Title=Get_model_360
+  Widgets: ['model_360']
+  Outputs:
+    - MODEL (type: MODEL) linked to IDs [2328]
+
+Node 1522: Type=SaveImage, Title=SaveImage
+  Widgets: ['ComfyUI']
+  Inputs:
+    - images (type: IMAGE) linked via ID 2327
+
+Node 1523: Type=GetNode, Title=Get_clip
+  Widgets: ['clip']
+  Outputs:
+    - CLIP (type: CLIP) linked to IDs [2363]
+
+Node 1524: Type=EmptySD3LatentImage, Title=EmptySD3LatentImage
+  Widgets: [2048, 1024, 1]
+  Outputs:
+    - LATENT (type: LATENT) linked to IDs [2331]
+
+Node 1525: Type=KSampler, Title=KSampler
+  Widgets: [1034973049061656, 'fixed', 20, 2.5, 'euler', 'simple', 1]
+  Inputs:
+    - model (type: MODEL) linked via ID 2328
+    - positive (type: CONDITIONING) linked via ID 2329
+    - negative (type: CONDITIONING) linked via ID 2330
+    - latent_image (type: LATENT) linked via ID 2331
+    - steps (type: INT) linked via ID 2332
+    - cfg (type: FLOAT) linked via ID 2333
+  Outputs:
+    - LATENT (type: LATENT) linked to IDs [2335]
+
+Node 1526: Type=SaveImage, Title=SaveImage
+  Widgets: ['ComfyUI']
+  Inputs:
+    - images (type: IMAGE) linked via ID 2334
+
+Node 1527: Type=VAEDecode, Title=VAEDecode
+  Inputs:
+    - samples (type: LATENT) linked via ID 2335
+    - vae (type: VAE) linked via ID 2336
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2327, 2334, 2341, 2342]
+
+Node 1528: Type=GetNode, Title=Get_cfg
+  Widgets: ['cfg']
+  Outputs:
+    - FLOAT (type: FLOAT) linked to IDs [2357]
+
+Node 1529: Type=GetNode, Title=Get_steps
+  Widgets: ['steps']
+  Outputs:
+    - INT (type: INT) linked to IDs [2356]
+
+Node 1530: Type=SaveImage, Title=SaveImage
+  Widgets: ['ComfyUI']
+  Inputs:
+    - images (type: IMAGE) linked via ID 2337
+
+Node 1531: Type=GetNode, Title=Get_clip
+  Widgets: ['clip']
+  Outputs:
+    - CLIP (type: CLIP) linked to IDs [2338]
+
+Node 1532: Type=TextEncodeQwenImageEditPlus, Title=TextEncodeQwenImageEditPlus
+  Widgets: ['Remove the visible seam in the middle of the image. Remove the white bar. Keep the rest of the image exactly the same.']
+  Inputs:
+    - clip (type: CLIP) linked via ID 2338
+    - vae (type: VAE) linked via ID 2339
+    - image1 (type: IMAGE) linked via ID 2340
+    - image2 (type: IMAGE) linked via ID None
+    - image3 (type: IMAGE) linked via ID None
+  Outputs:
+    - CONDITIONING (type: CONDITIONING) linked to IDs [2358, 2359]
+
+Node 1533: Type=GetNode, Title=Get_vae
+  Widgets: ['vae']
+  Outputs:
+    - VAE (type: VAE) linked to IDs [2339, 2360, 2367]
+
+Node 1534: Type=ImageConcanate, Title=ImageConcanate
+  Widgets: ['right', True]
+  Inputs:
+    - image1 (type: IMAGE) linked via ID 2341
+    - image2 (type: IMAGE) linked via ID 2342
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2349]
+
+Node 1535: Type=CreateShapeMask, Title=CreateShapeMask
+  Widgets: ['square', 1, 1024, 512, 0, 512, 512, 100, 1024]
+  Inputs:
+    - frame_width (type: INT) linked via ID 2343
+    - frame_height (type: INT) linked via ID 2344
+    - shape_width (type: INT) linked via ID 2345
+  Outputs:
+    - mask (type: MASK) linked to IDs [2347, 2362]
+    - mask_inverted (type: MASK) linked to IDs None
+
+Node 1536: Type=MaskToImage, Title=MaskToImage
+  Inputs:
+    - mask (type: MASK) linked via ID 2346
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2351]
+
+Node 1537: Type=GrowMaskWithBlur, Title=GrowMaskWithBlur
+  Widgets: [0, 0, True, False, 10, 1, 1, False]
+  Inputs:
+    - mask (type: MASK) linked via ID 2347
+    - blur_radius (type: FLOAT) linked via ID 2348
+  Outputs:
+    - mask (type: MASK) linked to IDs [2346]
+    - mask_inverted (type: MASK) linked to IDs None
+
+Node 1538: Type=ImageResizeKJv2, Title=ImageResizeKJv2
+  Widgets: [2048, 1024, 'lanczos', 'crop', '0, 0, 0', 'center', 2, 'cpu', 0, '<tr><td>Output: </td><td><b>1</b> x <b>2048</b> x <b>1024 | 24.00MB</b></td></tr>']
+  Inputs:
+    - image (type: IMAGE) linked via ID 2349
+    - mask (type: MASK) linked via ID None
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2350, 2361, 2369]
+    - width (type: INT) linked to IDs [2343]
+    - height (type: INT) linked to IDs [2344]
+    - mask (type: MASK) linked to IDs []
+
+Node 1539: Type=PrimitiveFloat, Title=Mask Blur
+  Widgets: [20]
+  Outputs:
+    - FLOAT (type: FLOAT) linked to IDs [2348]
+
+Node 1540: Type=PrimitiveInt, Title=Mask Size
+  Widgets: [200, 'fixed']
+  Outputs:
+    - INT (type: INT) linked to IDs [2345]
+
+Node 1541: Type=ImageBlend, Title=ImageBlend
+  Widgets: [1, 'screen']
+  Inputs:
+    - image1 (type: IMAGE) linked via ID 2350
+    - image2 (type: IMAGE) linked via ID 2351
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2340, 2368]
+
+Node 1542: Type=KSampler, Title=KSampler
+  Widgets: [1034973049061657, 'fixed', 20, 2.5, 'euler', 'simple', 1]
+  Inputs:
+    - model (type: MODEL) linked via ID 2352
+    - positive (type: CONDITIONING) linked via ID 2353
+    - negative (type: CONDITIONING) linked via ID 2354
+    - latent_image (type: LATENT) linked via ID 2355
+    - steps (type: INT) linked via ID 2356
+    - cfg (type: FLOAT) linked via ID 2357
+  Outputs:
+    - LATENT (type: LATENT) linked to IDs [2366]
+
+Node 1543: Type=InpaintModelConditioning, Title=InpaintModelConditioning
+  Widgets: [True]
+  Inputs:
+    - positive (type: CONDITIONING) linked via ID 2358
+    - negative (type: CONDITIONING) linked via ID 2359
+    - vae (type: VAE) linked via ID 2360
+    - pixels (type: IMAGE) linked via ID 2361
+    - mask (type: MASK) linked via ID 2362
+  Outputs:
+    - positive (type: CONDITIONING) linked to IDs [2353]
+    - negative (type: CONDITIONING) linked to IDs [2354]
+    - latent (type: LATENT) linked to IDs [2355]
+
+Node 1544: Type=Label (rgthree), Title=→
+
+Node 1545: Type=GetNode, Title=Get_model
+  Widgets: ['model']
+  Outputs:
+    - MODEL (type: MODEL) linked to IDs [2352]
+
+Node 1546: Type=TextEncodeQwenImageEditPlus, Title=TextEncodeQwenImageEditPlus
+  Widgets: ['Create a 360 panoramic image of the cozy modern restaurant, summer evening. An ultra-wide HDRI image captured on a ricoh...']
+  Inputs:
+    - clip (type: CLIP) linked via ID 2363
+    - vae (type: VAE) linked via ID 2364
+    - image1 (type: IMAGE) linked via ID 2384
+    - image2 (type: IMAGE) linked via ID None
+    - image3 (type: IMAGE) linked via ID None
+  Outputs:
+    - CONDITIONING (type: CONDITIONING) linked to IDs [2329, 2330]
+
+Node 1547: Type=SaveImage, Title=SaveImage
+  Widgets: ['ComfyUI']
+  Inputs:
+    - images (type: IMAGE) linked via ID 2365
+
+Node 1548: Type=VAEDecode, Title=VAEDecode
+  Inputs:
+    - samples (type: LATENT) linked via ID 2366
+    - vae (type: VAE) linked via ID 2367
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2337, 2365, 2393, 2394, 2583]
+
+Node 1549: Type=PreviewImage, Title=PreviewImage
+  Inputs:
+    - images (type: IMAGE) linked via ID 2368
+
+Node 1550: Type=PreviewImage, Title=PreviewImage
+  Inputs:
+    - images (type: IMAGE) linked via ID 2369
+
+Node 1552: Type=GetNode, Title=Get_ENVIRONMENT
+  Widgets: ['ENVIRONMENT']
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2383]
+
+Node 1554: Type=LoraLoaderModelOnly, Title=LoraLoaderModelOnly
+  Widgets: ['qwen\\251018_MICKMUMPITZ_QWEN-EDIT_360_03.safetensors', 0.9]
+  Inputs:
+    - model (type: MODEL) linked via ID 2387
+  Outputs:
+    - MODEL (type: MODEL) linked to IDs [2386]
+
+Node 1555: Type=SetNode, Title=Set_model_360
+  Widgets: ['model_360']
+  Inputs:
+    - MODEL (type: MODEL) linked via ID 2386
+  Outputs:
+    - * (type: *) linked to IDs None
+
+Node 1556: Type=ImagePadForOutpaint, Title=ImagePadForOutpaint
+  Widgets: [568, 280, 568, 280, 40]
+  Inputs:
+    - image (type: IMAGE) linked via ID 2376
+    - left (type: INT) linked via ID 2377
+    - top (type: INT) linked via ID 2378
+    - right (type: INT) linked via ID 2379
+    - bottom (type: INT) linked via ID 2380
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2382]
+    - MASK (type: MASK) linked to IDs None
+
+Node 1557: Type=PrimitiveInt, Title=Padding
+  Widgets: [400, 'fixed']
+  Outputs:
+    - INT (type: INT) linked to IDs [2377, 2378, 2379, 2380]
+
+Node 1558: Type=PreviewImage, Title=PreviewImage
+  Inputs:
+    - images (type: IMAGE) linked via ID 2381
+
+Node 1559: Type=ImageResizeKJv2, Title=ImageResizeKJv2
+  Widgets: [1024, 512, 'lanczos', 'pad', '127, 127, 127', 'center', 2, 'cpu', 0]
+  Inputs:
+    - image (type: IMAGE) linked via ID 2382
+    - mask (type: MASK) linked via ID None
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2381, 2384]
+    - width (type: INT) linked to IDs None
+    - height (type: INT) linked to IDs None
+    - mask (type: MASK) linked to IDs None
+
+Node 1560: Type=ImageScaleToTotalPixels, Title=ImageScaleToTotalPixels
+  Widgets: ['lanczos', 1]
+  Inputs:
+    - image (type: IMAGE) linked via ID 2383
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2376]
+
+Node 1562: Type=ImageConcanate, Title=ImageConcanate
+  Widgets: ['right', True]
+  Inputs:
+    - image1 (type: IMAGE) linked via ID 2393
+    - image2 (type: IMAGE) linked via ID 2394
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2586]
+
+Node 1589: Type=GetNode, Title=Get_IMG_01
+  Widgets: ['IMG_01']
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2438]
+
+Node 1590: Type=SetNode, Title=Set_IMG_02
+  Widgets: ['IMG_02']
+  Inputs:
+    - IMAGE (type: IMAGE) linked via ID 2439
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs []
+
+Node 1591: Type=PrimitiveInt, Title=PrimitiveInt
+  Widgets: [1034973049061649, 'fixed']
+  Outputs:
+    - INT (type: INT) linked to IDs [2469]
+
+Node 1598: Type=GetNode, Title=Get_IMG_02
+  Widgets: ['IMG_02']
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2775]
+
+Node 1599: Type=GetNode, Title=Get_ENVIRONMENT
+  Widgets: ['ENVIRONMENT']
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2458]
+
+Node 1600: Type=GetNode, Title=Get_IMG_03
+  Widgets: ['IMG_03']
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs []
+
+Node 1601: Type=GetNode, Title=Get_IMG_01
+  Widgets: ['IMG_01']
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2460]
+
+Node 1602: Type=GetNode, Title=Get_IMG_02
+  Widgets: ['IMG_02']
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2774]
+
+Node 1603: Type=SetNode, Title=Set_REFERENCE
+  Widgets: ['REFERENCE']
+  Inputs:
+    - IMAGE (type: IMAGE) linked via ID 2462
+  Outputs:
+    - * (type: *) linked to IDs None
+
+Node 1604: Type=KSampler, Title=KSampler
+  Widgets: [1034973049061589, 'fixed', 20, 2.5, 'euler', 'simple', 1]
+  Inputs:
+    - model (type: MODEL) linked via ID 2465
+    - positive (type: CONDITIONING) linked via ID 2466
+    - negative (type: CONDITIONING) linked via ID 2467
+    - latent_image (type: LATENT) linked via ID 2468
+    - seed (type: INT) linked via ID 2469
+    - steps (type: INT) linked via ID 2470
+    - cfg (type: FLOAT) linked via ID 2471
+  Outputs:
+    - LATENT (type: LATENT) linked to IDs [2464]
+
+Node 1605: Type=VAEDecode, Title=VAEDecode
+  Inputs:
+    - samples (type: LATENT) linked via ID 2464
+    - vae (type: VAE) linked via ID 2472
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2479, 2480, 2481]
+
+Node 1606: Type=SetNode, Title=Set_model_nextScene
+  Widgets: ['model_nextScene']
+  Inputs:
+    - MODEL (type: MODEL) linked via ID 2482
+  Outputs:
+    - * (type: *) linked to IDs None
+
+Node 1607: Type=LoraLoaderModelOnly, Title=LoraLoaderModelOnly
+  Widgets: ['qwen\\next-scene_lora-v2-3000.safetensors', 0.9]
+  Inputs:
+    - model (type: MODEL) linked via ID 2921
+  Outputs:
+    - MODEL (type: MODEL) linked to IDs [2482]
+
+Node 1610: Type=ImageScaleToTotalPixels, Title=ImageScaleToTotalPixels
+  Widgets: ['lanczos', 1]
+  Inputs:
+    - image (type: IMAGE) linked via ID 2486
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2487]
+
+Node 1611: Type=LoadImage, Title=IMAGE 3
+  Widgets: ['a_cozy_modern_five_star_restaurant_with_glass_windows_overlooking_a_foggy_pine_forest_natural_mount_k69q6wfb2faiwi2cx42s...', 'image']
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2486]
+    - MASK (type: MASK) linked to IDs None
+
+Node 1612: Type=SetNode, Title=Set_ENVIRONMENT
+  Widgets: ['ENVIRONMENT']
+  Inputs:
+    - IMAGE (type: IMAGE) linked via ID 2487
+  Outputs:
+    - * (type: *) linked to IDs []
+
+Node 1613: Type=SaveImage, Title=SaveImage
+  Widgets: ['ComfyUI']
+  Inputs:
+    - images (type: IMAGE) linked via ID 2925
+    - filename_prefix (type: STRING) linked via ID 2711
+
+Node 1614: Type=GetNode, Title=Get_vae
+  Widgets: ['vae']
+  Outputs:
+    - VAE (type: VAE) linked to IDs [2492, 2496]
+
+Node 1615: Type=GetNode, Title=Get_steps
+  Widgets: ['steps']
+  Outputs:
+    - INT (type: INT) linked to IDs [2503]
+
+Node 1616: Type=GetNode, Title=Get_cfg
+  Widgets: ['cfg']
+  Outputs:
+    - FLOAT (type: FLOAT) linked to IDs [2504]
+
+Node 1617: Type=GetNode, Title=Get_Height
+  Widgets: ['Height']
+  Outputs:
+    - INT (type: INT) linked to IDs [2490]
+
+Node 1618: Type=GetNode, Title=Get_Width
+  Widgets: ['Width']
+  Outputs:
+    - INT (type: INT) linked to IDs [2489]
+
+Node 1619: Type=EmptySD3LatentImage, Title=EmptySD3LatentImage
+  Widgets: [1920, 1088, 1]
+  Inputs:
+    - width (type: INT) linked via ID 2489
+    - height (type: INT) linked via ID 2490
+  Outputs:
+    - LATENT (type: LATENT) linked to IDs [2501]
+
+Node 1620: Type=GetNode, Title=Get_model_nextScene
+  Widgets: ['model_nextScene']
+  Outputs:
+    - MODEL (type: MODEL) linked to IDs [2498]
+
+Node 1621: Type=GetNode, Title=Get_OUT_01
+  Widgets: ['OUT_01']
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2776]
+
+Node 1622: Type=GetNode, Title=Get_IMG_01
+  Widgets: ['IMG_01']
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs []
+
+Node 1623: Type=GetNode, Title=Get_REFERENCE
+  Widgets: ['REFERENCE']
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2777]
+
+Node 1624: Type=PrimitiveInt, Title=PrimitiveInt
+  Widgets: [1034973049061648, 'fixed']
+  Outputs:
+    - INT (type: INT) linked to IDs [2502]
+
+Node 1625: Type=TextEncodeQwenImageEditPlus, Title=TextEncodeQwenImageEditPlus
+  Widgets: ['Next scene:  The camera is behind the man creating an over the shoulder shot showing a frontal view of the woman smiling...']
+  Inputs:
+    - clip (type: CLIP) linked via ID 2491
+    - vae (type: VAE) linked via ID 2492
+    - image1 (type: IMAGE) linked via ID 2776
+    - image2 (type: IMAGE) linked via ID 2777
+    - image3 (type: IMAGE) linked via ID None
+  Outputs:
+    - CONDITIONING (type: CONDITIONING) linked to IDs [2499, 2500]
+
+Node 1626: Type=GetNode, Title=Get_clip
+  Widgets: ['clip']
+  Outputs:
+    - CLIP (type: CLIP) linked to IDs [2491]
+
+Node 1627: Type=VAEDecode, Title=VAEDecode
+  Inputs:
+    - samples (type: LATENT) linked via ID 2495
+    - vae (type: VAE) linked via ID 2496
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2497, 2924, 2925]
+
+Node 1628: Type=SaveImage, Title=SaveImage
+  Widgets: ['ComfyUI']
+  Inputs:
+    - images (type: IMAGE) linked via ID 2497
+
+Node 1629: Type=KSampler, Title=KSampler
+  Widgets: [1034973049061647, 'fixed', 20, 2.5, 'euler', 'simple', 1]
+  Inputs:
+    - model (type: MODEL) linked via ID 2498
+    - positive (type: CONDITIONING) linked via ID 2499
+    - negative (type: CONDITIONING) linked via ID 2500
+    - latent_image (type: LATENT) linked via ID 2501
+    - seed (type: INT) linked via ID 2502
+    - steps (type: INT) linked via ID 2503
+    - cfg (type: FLOAT) linked via ID 2504
+  Outputs:
+    - LATENT (type: LATENT) linked to IDs [2495]
+
+Node 1630: Type=SetNode, Title=Set_OUT_02
+  Widgets: ['OUT_02']
+  Inputs:
+    - IMAGE (type: IMAGE) linked via ID 2924
+  Outputs:
+    - * (type: *) linked to IDs []
+
+Node 1704: Type=PreviewImage, Title=PreviewImage
+  Inputs:
+    - images (type: IMAGE) linked via ID 2588
+
+Node 1705: Type=PreviewImage, Title=PreviewImage
+  Inputs:
+    - images (type: IMAGE) linked via ID 2584
+
+Node 1706: Type=Reroute, Title=Reroute
+  Inputs:
+    -  (type: *) linked via ID 2583
+  Outputs:
+    -  (type: IMAGE) linked to IDs [2584, 2585]
+
+Node 1707: Type=SetNode, Title=Set_360 IMAGE
+  Widgets: ['360 IMAGE']
+  Inputs:
+    - IMAGE (type: IMAGE) linked via ID 2585
+  Outputs:
+    - * (type: *) linked to IDs None
+
+Node 1708: Type=Reroute, Title=Reroute
+  Inputs:
+    -  (type: *) linked via ID 2586
+  Outputs:
+    -  (type: IMAGE) linked to IDs [2587, 2588]
+
+Node 1709: Type=SetNode, Title=Set_360 IMAGE_2x
+  Widgets: ['360 IMAGE_2x']
+  Inputs:
+    - IMAGE (type: IMAGE) linked via ID 2587
+  Outputs:
+    - * (type: *) linked to IDs None
+
+Node 1815: Type=PrimitiveStringMultiline, Title=SCENE-NAME
+  Widgets: ['SceneName']
+  Outputs:
+    - STRING (type: STRING) linked to IDs [2705]
+
+Node 1816: Type=SetNode, Title=Set_name
+  Widgets: ['name']
+  Inputs:
+    - STRING (type: STRING) linked via ID 2705
+  Outputs:
+    - * (type: *) linked to IDs None
+
+Node 1817: Type=GetNode, Title=Get_name
+  Widgets: ['name']
+  Outputs:
+    - STRING (type: STRING) linked to IDs [2706, 2707]
+
+Node 1818: Type=JoinStringMulti, Title=JoinStringMulti
+  Widgets: [2, '/', False, None]
+  Inputs:
+    - string_1 (type: STRING) linked via ID 2706
+    - string_2 (type: STRING) linked via ID 2707
+  Outputs:
+    - string (type: STRING) linked to IDs [2708]
+
+Node 1819: Type=JoinStringMulti, Title=JoinStringMulti
+  Widgets: [2, '/', False, None]
+  Inputs:
+    - string_1 (type: STRING) linked via ID 2709
+    - string_2 (type: STRING) linked via ID 2710
+  Outputs:
+    - string (type: STRING) linked to IDs [2711]
+
+Node 1820: Type=GetNode, Title=Get_name
+  Widgets: ['name']
+  Outputs:
+    - STRING (type: STRING) linked to IDs [2709, 2710]
+
+Node 1981: Type=SetNode, Title=Set_IMG_POSE_01
+  Widgets: ['IMG_POSE_01']
+  Inputs:
+    - IMAGE (type: IMAGE) linked via ID 2911
+  Outputs:
+    - * (type: *) linked to IDs None
+
+Node 1982: Type=GetNode, Title=Get_360 IMAGE
+  Widgets: ['360 IMAGE']
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2914]
+
+Node 1983: Type=Label (rgthree), Title=Environment
+
+Node 1984: Type=Reroute, Title=Reroute
+  Inputs:
+    -  (type: *) linked via ID None
+  Outputs:
+    -  (type: *) linked to IDs None
+
+Node 1985: Type=Note, Title=Note
+  Widgets: ['InSubject-0.5.safetensors\n\nhttps://huggingface.co/peteromallet/Qwen-Image-Edit-InSubject/tree/main\n\n📁 ComfyUI/models/lor...']
+
+Node 1986: Type=Label (rgthree), Title=→
+
+Node 1987: Type=Note, Title=Note
+  Widgets: ['251018_MICKMUMPITZ_QWEN-EDIT_360_03.safetensors\n\nDownload from the Patreon Post!\n\n📁 ComfyUI/models/lora']
+
+Node 1988: Type=Label (rgthree), Title=→
+
+Node 1989: Type=OlmDragCrop, Title=OlmDragCrop
+  Widgets: [1762191237378, 2175, 1433, 378, 371, 488, 275, 4096, 1024, 'none', '16:9', True, 'set_ratio', 'refresh', None, 'Lime', 'reset']
+  Inputs:
+    - image (type: IMAGE) linked via ID 2919
+    - mask (type: MASK) linked via ID None
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs []
+    - MASK (type: MASK) linked to IDs None
+    - CROP_JSON (type: STRING) linked to IDs None
+
+Node 1990: Type=GetNode, Title=Get_360 IMAGE_2x
+  Widgets: ['360 IMAGE_2x']
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [2919]
+
+Node 1991: Type=Note, Title=Note
+  Widgets: ['Qwen-Image-Boreal (Boring Reality LoRA for Qwen)\n\nhttps://civitai.com/models/1927710?modelVersionId=2181880\n\n📁 ComfyUI/m...']
+
+Node 1992: Type=Label (rgthree), Title=→
+
+Node 1993: Type=Note, Title=Note
+  Widgets: ['Studio Realism\n\nhttps://civitai.com/models/1972643/studio-realism\n\n📁 ComfyUI/models/lora']
+
+Node 1994: Type=Label (rgthree), Title=→
+
+Node 1995: Type=Label (rgthree), Title=→
+
+Node 1996: Type=Note, Title=Note
+  Widgets: [' next-scene_lora-v2-3000.safetensors\n\nhttps://huggingface.co/lovis93/next-scene-qwen-image-lora-2509/tree/main\n\n📁 ComfyU...']

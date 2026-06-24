@@ -1,0 +1,241 @@
+Trace of c:/Users/gagan/stash/workflow/example_workflow/251029_MICKMUMPITZ_IMG2VID_1-0.json:
+Total nodes: 44
+
+=== NODES ===
+Node 3: Type=CLIPTextEncode, Title=Positive Prompt
+  Widgets: ['The two characters are leaning over the table to kiss each other. The camera slowly moves closer to their faces as they ...']
+  Inputs:
+    - clip (type: CLIP) linked via ID 282
+  Outputs:
+    - CONDITIONING (type: CONDITIONING) linked to IDs [374]
+
+Node 4: Type=CLIPTextEncode, Title=Negative Prompt
+  Widgets: ['色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱...']
+  Inputs:
+    - clip (type: CLIP) linked via ID 283
+  Outputs:
+    - CONDITIONING (type: CONDITIONING) linked to IDs [203, 375, 386]
+
+Node 8: Type=VAELoader, Title=VAELoader
+  Widgets: ['wan\\wan_2.1_vae.safetensors']
+  Outputs:
+    - VAE (type: VAE) linked to IDs [9, 381]
+
+Node 9: Type=VAEDecode, Title=VAEDecode
+  Inputs:
+    - samples (type: LATENT) linked via ID 322
+    - vae (type: VAE) linked via ID 9
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [332, 371]
+
+Node 22: Type=CLIPLoader, Title=CLIPLoader
+  Widgets: ['umt5_xxl_fp8_e4m3fn_scaled.safetensors', 'wan', 'default']
+  Outputs:
+    - CLIP (type: CLIP) linked to IDs [253, 260, 282, 283]
+
+Node 67: Type=Seed Generator, Title=Seed Generator
+  Widgets: [105552262210580, 'fixed']
+  Outputs:
+    - INT (type: INT) linked to IDs [323, 324]
+
+Node 104: Type=UNETLoader, Title=UNETLoader
+  Widgets: ['wan\\wan2.2_i2v_low_noise_14B_fp16.safetensors', 'fp8_e4m3fn']
+  Outputs:
+    - MODEL (type: MODEL) linked to IDs [252]
+
+Node 106: Type=UNETLoader, Title=UNETLoader
+  Widgets: ['wan\\wan2.2_i2v_high_noise_14B_fp16.safetensors', 'fp8_e4m3fn']
+  Outputs:
+    - MODEL (type: MODEL) linked to IDs [281]
+
+Node 115: Type=WanVideoNAG, Title=WanVideoNAG
+  Widgets: [11, 0.25, 2.5, 'default']
+  Inputs:
+    - model (type: MODEL) linked via ID 254
+    - conditioning (type: CONDITIONING) linked via ID 203
+  Outputs:
+    - model (type: MODEL) linked to IDs [383]
+
+Node 135: Type=Power Lora Loader (rgthree), Title=Power Lora Loader (rgthree)
+  Widgets: [{}, {'type': 'PowerLoraLoaderHeaderWidget'}, {'on': True, 'lora': 'wan\\wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors', 'strength': 1, 'strengthTwo': None}, {'on': False, 'lora': 'wan\\Wan21_T2V_14B_lightx2v_cfg_step_distill_lora_rank32.safetensors', 'strength': 0.8, 'strengthTwo': None}, {'on': False, 'lora': 'wan\\Instareal_low.safetensors', 'strength': 0.85, 'strengthTwo': None}, {'on': False, 'lora': 'wan\\Lenovo.safetensors', 'strength': 1, 'strengthTwo': None}, {'on': False, 'lora': 'wan\\stock_photography_wan22_LOW_v1.safetensors', 'strength': 0.75, 'strengthTwo': None}, {}, '']
+  Inputs:
+    - model (type: MODEL) linked via ID 252
+    - clip (type: CLIP) linked via ID 253
+  Outputs:
+    - MODEL (type: MODEL) linked to IDs [254]
+    - CLIP (type: CLIP) linked to IDs []
+
+Node 136: Type=Power Lora Loader (rgthree), Title=Power Lora Loader (rgthree)
+  Widgets: [{}, {'type': 'PowerLoraLoaderHeaderWidget'}, {'on': True, 'lora': 'wan\\wan2.2_i2v_lightx2v_4steps_lora_v1_high_noise.safetensors', 'strength': 1, 'strengthTwo': None}, {'on': False, 'lora': 'wan\\Wan21_T2V_14B_lightx2v_cfg_step_distill_lora_rank32.safetensors', 'strength': 0.6, 'strengthTwo': None}, {'on': False, 'lora': 'wan\\Instareal_high.safetensors', 'strength': 0.7, 'strengthTwo': None}, {'on': False, 'lora': 'wan\\Lenovo.safetensors', 'strength': 0.85, 'strengthTwo': None}, {}, '']
+  Inputs:
+    - model (type: MODEL) linked via ID 281
+    - clip (type: CLIP) linked via ID 260
+  Outputs:
+    - MODEL (type: MODEL) linked to IDs [385]
+    - CLIP (type: CLIP) linked to IDs None
+
+Node 140: Type=Film Grain, Title=Film Grain
+  Widgets: [1, 0.04, 1, 5, 1]
+  Inputs:
+    - image (type: IMAGE) linked via ID 372
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [373]
+
+Node 148: Type=Label (rgthree), Title=→
+
+Node 151: Type=MarkdownNote, Title=My Loras:
+  Widgets: ['\n**LoRA**\n\n- [wan2.2_i2v_lightx2v_4steps_lora_v1_high_noise.safetensors](https://huggingface.co/Comfy-Org/Wan_2.2_ComfyU...']
+
+Node 158: Type=MarkdownNote, Title=Models
+  Widgets: ['**Diffusion Model**\n- [wan2.2_i2v_high_noise_14B_fp16.safetensors](https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repa...']
+
+Node 159: Type=MarkdownNote, Title=Models
+  Widgets: ['**Diffusion Model**\n- [wan2.2_i2v_low_noise_14B_fp16.safetensors](https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repac...']
+
+Node 160: Type=Label (rgthree), Title=→
+
+Node 161: Type=MarkdownNote, Title=Models
+  Widgets: ['**VAE**\n- [wan_2.1_vae.safetensors](https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files...']
+
+Node 162: Type=Label (rgthree), Title=→
+
+Node 163: Type=MarkdownNote, Title=Models
+  Widgets: ['**Text Encoder**   \n- [umt5_xxl_fp8_e4m3fn_scaled.safetensors](https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackag...']
+
+Node 164: Type=Label (rgthree), Title=→
+
+Node 168: Type=KSamplerAdvanced, Title=KSamplerAdvanced
+  Widgets: ['enable', 100, 'fixed', 4, 1, 'res_2m', 'beta57', 0, 2, 'disable']
+  Inputs:
+    - model (type: MODEL) linked via ID 388
+    - positive (type: CONDITIONING) linked via ID 376
+    - negative (type: CONDITIONING) linked via ID 377
+    - latent_image (type: LATENT) linked via ID 380
+    - noise_seed (type: INT) linked via ID 323
+  Outputs:
+    - LATENT (type: LATENT) linked to IDs [314]
+
+Node 169: Type=KSamplerAdvanced, Title=KSamplerAdvanced
+  Widgets: ['enable', 100, 'fixed', 4, 1, 'res_2m', 'beta57', 2, 999, 'disable']
+  Inputs:
+    - model (type: MODEL) linked via ID 384
+    - positive (type: CONDITIONING) linked via ID 378
+    - negative (type: CONDITIONING) linked via ID 379
+    - latent_image (type: LATENT) linked via ID 314
+    - noise_seed (type: INT) linked via ID 324
+  Outputs:
+    - LATENT (type: LATENT) linked to IDs [322]
+
+Node 170: Type=Reroute, Title=Reroute
+  Inputs:
+    -  (type: *) linked via ID None
+  Outputs:
+    -  (type: *) linked to IDs None
+
+Node 171: Type=Label (rgthree), Title=by Mickmumpitz
+
+Node 172: Type=Label (rgthree), Title=Important Notes!
+
+Node 173: Type=Label (rgthree), Title=Sampling
+
+Node 174: Type=Label (rgthree), Title=Post Processing
+
+Node 175: Type=Reroute, Title=Reroute
+  Inputs:
+    -  (type: *) linked via ID None
+  Outputs:
+    -  (type: *) linked to IDs None
+
+Node 176: Type=Reroute, Title=Reroute
+  Inputs:
+    -  (type: *) linked via ID None
+  Outputs:
+    -  (type: *) linked to IDs None
+
+Node 177: Type=Reroute, Title=Reroute
+  Inputs:
+    -  (type: *) linked via ID None
+  Outputs:
+    -  (type: *) linked to IDs None
+
+Node 178: Type=Reroute, Title=Reroute
+  Inputs:
+    -  (type: *) linked via ID None
+  Outputs:
+    -  (type: *) linked to IDs None
+
+Node 179: Type=Label (rgthree), Title=Prompt
+
+Node 180: Type=Label (rgthree), Title=Input / Output / Model Loaders
+
+Node 181: Type=Label (rgthree), Title=WAN 2.2. IMG2VID 1.0 
+
+Node 193: Type=FILM VFI, Title=FILM VFI
+  Widgets: ['film_net_fp32.pt', 5, 2]
+  Inputs:
+    - frames (type: IMAGE) linked via ID 371
+    - optional_interpolation_states (type: INTERPOLATION_STATES) linked via ID None
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [372]
+
+Node 194: Type=VHS_VideoCombine, Title=VHS_VideoCombine
+  Widgets: ['frame_rate', 'loop_count', 'filename_prefix', 'format', 'pix_fmt', 'crf', 'save_metadata', 'trim_to_audio', 'pingpong', 'save_output', 'videopreview']
+  Inputs:
+    - images (type: IMAGE) linked via ID 373
+    - audio (type: AUDIO) linked via ID None
+    - meta_batch (type: VHS_BatchManager) linked via ID None
+    - vae (type: VAE) linked via ID None
+  Outputs:
+    - Filenames (type: VHS_FILENAMES) linked to IDs None
+
+Node 198: Type=WanFirstLastFrameToVideo, Title=WanFirstLastFrameToVideo
+  Widgets: [1280, 720, 81, 1]
+  Inputs:
+    - positive (type: CONDITIONING) linked via ID 374
+    - negative (type: CONDITIONING) linked via ID 375
+    - vae (type: VAE) linked via ID 381
+    - clip_vision_start_image (type: CLIP_VISION_OUTPUT) linked via ID None
+    - clip_vision_end_image (type: CLIP_VISION_OUTPUT) linked via ID None
+    - start_image (type: IMAGE) linked via ID 390
+    - end_image (type: IMAGE) linked via ID 389
+  Outputs:
+    - positive (type: CONDITIONING) linked to IDs [376, 378]
+    - negative (type: CONDITIONING) linked to IDs [377, 379]
+    - latent (type: LATENT) linked to IDs [380]
+
+Node 199: Type=LoadImage, Title=LoadImage
+  Widgets: ['Kiss_v01_00001_.png', 'image']
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [389]
+    - MASK (type: MASK) linked to IDs None
+
+Node 200: Type=MarkdownNote, Title=My Loras:
+  Widgets: ['\n**LoRA**\n- [wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors](https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_...']
+
+Node 201: Type=ModelSamplingSD3, Title=ModelSamplingSD3
+  Widgets: [5.000000000000001]
+  Inputs:
+    - model (type: MODEL) linked via ID 383
+  Outputs:
+    - MODEL (type: MODEL) linked to IDs [384]
+
+Node 202: Type=ModelSamplingSD3, Title=ModelSamplingSD3
+  Widgets: [5.000000000000001]
+  Inputs:
+    - model (type: MODEL) linked via ID 387
+  Outputs:
+    - MODEL (type: MODEL) linked to IDs [388]
+
+Node 203: Type=WanVideoNAG, Title=WanVideoNAG
+  Widgets: [11, 0.25, 2.5, 'default']
+  Inputs:
+    - model (type: MODEL) linked via ID 385
+    - conditioning (type: CONDITIONING) linked via ID 386
+  Outputs:
+    - model (type: MODEL) linked to IDs [387]
+
+Node 204: Type=LoadImage, Title=LoadImage
+  Widgets: ['Kiss_v01_00035_.png', 'image']
+  Outputs:
+    - IMAGE (type: IMAGE) linked to IDs [390]
+    - MASK (type: MASK) linked to IDs None

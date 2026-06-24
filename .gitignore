@@ -1,0 +1,30 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.venv/
+venv/
+ENV/
+env/
+
+# Project Outputs
+output/
+scripts/output/
+
+# Large Model Files / Local Assets
+*.safetensors
+*.ckpt
+*.pt
+*.bin
+*.gguf
+
+# Logs
+*.log
+logs/
+video_list.txt
+
+# OS metadata
+.DS_Store
+Thumbs.db

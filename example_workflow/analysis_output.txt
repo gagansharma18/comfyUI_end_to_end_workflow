@@ -1,0 +1,153 @@
+Analyzing c:/Users/gagan/stash/workflow/example_workflow/251029_MICKMUMPITZ_IMG2VID_1-0.json...
+Format: Web/UI JSON
+Total nodes: 44
+
+Node types count:
+  - Label (rgthree): 11
+  - MarkdownNote: 6
+  - Reroute: 5
+  - Power Lora Loader (rgthree): 2
+  - WanVideoNAG: 2
+  - CLIPTextEncode: 2
+  - ModelSamplingSD3: 2
+  - KSamplerAdvanced: 2
+  - UNETLoader: 2
+  - LoadImage: 2
+  - CLIPLoader: 1
+  - VAEDecode: 1
+  - VAELoader: 1
+  - WanFirstLastFrameToVideo: 1
+  - Seed Generator: 1
+  - VHS_VideoCombine: 1
+  - FILM VFI: 1
+  - Film Grain: 1
+
+Interesting nodes/models found:
+  [Node 163] Models (MarkdownNote):
+    widgets/inputs: ['**Text Encoder**   \n- [umt5_xxl_fp8_e4m3fn_scaled.safetensors](https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors)\n\n📁 ComfyUI\\models\\text_encoders\n']
+  [Node 161] Models (MarkdownNote):
+    widgets/inputs: ['**VAE**\n- [wan_2.1_vae.safetensors](https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/vae/wan_2.1_vae.safetensors)\n\n📁 ComfyUI\\models\\vae\n']
+  [Node 22] CLIPLoader (CLIPLoader):
+    widgets/inputs: ['umt5_xxl_fp8_e4m3fn_scaled.safetensors', 'wan', 'default']
+  [Node 8] VAELoader (VAELoader):
+    widgets/inputs: ['wan\\wan_2.1_vae.safetensors']
+  [Node 158] Models (MarkdownNote):
+    widgets/inputs: ['**Diffusion Model**\n- [wan2.2_i2v_high_noise_14B_fp16.safetensors](https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_i2v_high_noise_14B_fp16.safetensors)\n\n📁 ComfyUI\\models\\diffusion_models']
+  [Node 159] Models (MarkdownNote):
+    widgets/inputs: ['**Diffusion Model**\n- [wan2.2_i2v_low_noise_14B_fp16.safetensors](https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_i2v_low_noise_14B_fp16.safetensors)\n\n\n📁 ComfyUI\\models\\diffusion_models']
+  [Node 200] My Loras: (MarkdownNote):
+    widgets/inputs: ['\n**LoRA**\n- [wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors](https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/loras/wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors)\n']
+  [Node 151] My Loras: (MarkdownNote):
+    widgets/inputs: ['\n**LoRA**\n\n- [wan2.2_i2v_lightx2v_4steps_lora_v1_high_noise.safetensors](https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/loras/wan2.2_i2v_lightx2v_4steps_lora_v1_high_noise.safetensors)\n']
+  [Node 135] Power Lora Loader (rgthree) (Power Lora Loader (rgthree)):
+    widgets/inputs: [{}, {'type': 'PowerLoraLoaderHeaderWidget'}, {'on': True, 'lora': 'wan\\wan2.2_i2v_lightx2v_4steps_lora_v1_low_noise.safetensors', 'strength': 1, 'strengthTwo': None}, {'on': False, 'lora': 'wan\\Wan21_T2V_14B_lightx2v_cfg_step_distill_lora_rank32.safetensors', 'strength': 0.8, 'strengthTwo': None}, {'on': False, 'lora': 'wan\\Instareal_low.safetensors', 'strength': 0.85, 'strengthTwo': None}, {'on': False, 'lora': 'wan\\Lenovo.safetensors', 'strength': 1, 'strengthTwo': None}, {'on': False, 'lora': 'wan\\stock_photography_wan22_LOW_v1.safetensors', 'strength': 0.75, 'strengthTwo': None}, {}, '']
+  [Node 136] Power Lora Loader (rgthree) (Power Lora Loader (rgthree)):
+    widgets/inputs: [{}, {'type': 'PowerLoraLoaderHeaderWidget'}, {'on': True, 'lora': 'wan\\wan2.2_i2v_lightx2v_4steps_lora_v1_high_noise.safetensors', 'strength': 1, 'strengthTwo': None}, {'on': False, 'lora': 'wan\\Wan21_T2V_14B_lightx2v_cfg_step_distill_lora_rank32.safetensors', 'strength': 0.6, 'strengthTwo': None}, {'on': False, 'lora': 'wan\\Instareal_high.safetensors', 'strength': 0.7, 'strengthTwo': None}, {'on': False, 'lora': 'wan\\Lenovo.safetensors', 'strength': 0.85, 'strengthTwo': None}, {}, '']
+  [Node 106] UNETLoader (UNETLoader):
+    widgets/inputs: ['wan\\wan2.2_i2v_high_noise_14B_fp16.safetensors', 'fp8_e4m3fn']
+  [Node 104] UNETLoader (UNETLoader):
+    widgets/inputs: ['wan\\wan2.2_i2v_low_noise_14B_fp16.safetensors', 'fp8_e4m3fn']
+  [Node 193] FILM VFI (FILM VFI):
+    widgets/inputs: ['film_net_fp32.pt', 5, 2]
+
+==================================================
+
+Analyzing c:/Users/gagan/stash/workflow/example_workflow/251101_MICKMUMPITZ_SCENE-BUILDER_1-1.json...
+Format: Web/UI JSON
+Total nodes: 174
+
+Node types count:
+  - GetNode: 40
+  - SetNode: 20
+  - Label (rgthree): 19
+  - Note: 9
+  - SaveImage: 8
+  - Reroute: 7
+  - PreviewImage: 7
+  - PrimitiveInt: 7
+  - ImageScaleToTotalPixels: 6
+  - LoraLoaderModelOnly: 6
+  - LoadImage: 5
+  - VAEDecode: 4
+  - KSampler: 4
+  - TextEncodeQwenImageEditPlus: 4
+  - EmptySD3LatentImage: 3
+  - ImageResizeKJv2: 3
+  - PrimitiveFloat: 2
+  - ImageConcanate: 2
+  - JoinStringMulti: 2
+  - ImageConcatMulti: 2
+  - CLIPLoader: 1
+  - VAELoader: 1
+  - CFGNorm: 1
+  - CreateShapeMask: 1
+  - MaskToImage: 1
+  - GrowMaskWithBlur: 1
+  - ImageBlend: 1
+  - ImagePadForOutpaint: 1
+  - ModelSamplingAuraFlow: 1
+  - DWPreprocessor: 1
+  - InpaintModelConditioning: 1
+  - OlmDragCrop: 1
+  - LoaderGGUF: 1
+  - PrimitiveStringMultiline: 1
+
+Interesting nodes/models found:
+  [Node 362] CLIPLoader (CLIPLoader):
+    widgets/inputs: ['qwen\\qwen_2.5_vl_7b_fp8_scaled.safetensors', 'qwen_image', 'cpu']
+  [Node 360] VAELoader (VAELoader):
+    widgets/inputs: ['qwen\\qwen_image_vae.safetensors']
+  [Node 206] Get_model (GetNode):
+    widgets/inputs: ['model']
+  [Node 1545] Get_model (GetNode):
+    widgets/inputs: ['model']
+  [Node 1521] Get_model_360 (GetNode):
+    widgets/inputs: ['model_360']
+  [Node 213] IMAGE 1 (LoadImage):
+    widgets/inputs: ['a_candid_portrait_of_a_woman_with_natural_makeup_showcasing_her_unique_facial_features_captured_in__5837qamrn99y6vyf1nee_2.jpg', 'image']
+  [Node 1284] IMAGE 2 (LoadImage):
+    widgets/inputs: ['a_unique-looking_fashion_model_with_distinct_facial_features_medium_close-up_shot_professional_stud_6dyrfa5j5bs6mo5guhf3_1.jpg', 'image']
+  [Node 1620] Get_model_nextScene (GetNode):
+    widgets/inputs: ['model_nextScene']
+  [Node 1294] DWPreprocessor (DWPreprocessor):
+    widgets/inputs: ['enable', 'enable', 'enable', 1024, 'yolox_l.onnx', 'dw-ll_ucoco_384_bs5.torchscript.pt', 'disable']
+  [Node 1546] TextEncodeQwenImageEditPlus (TextEncodeQwenImageEditPlus):
+    widgets/inputs: ['Create a 360 panoramic image of the cozy modern restaurant, summer evening. An ultra-wide HDRI image captured on a ricoh 360 degree camera, insta 360, equirectagular projection. Keep the style the same.']
+  [Node 547] LoraLoaderModelOnly (LoraLoaderModelOnly):
+    widgets/inputs: ['qwen\\Qwen-Image-Lightning-4steps-V2.0.safetensors', 1]
+  [Node 1483] LoraLoaderModelOnly (LoraLoaderModelOnly):
+    widgets/inputs: ['qwen\\InSubject-0.5.safetensors', 0.7]
+  [Node 1289] LoraLoaderModelOnly (LoraLoaderModelOnly):
+    widgets/inputs: ['qwen\\qwen-boreal-general-discrete-low-rank.safetensors', 0.85]
+  [Node 1554] LoraLoaderModelOnly (LoraLoaderModelOnly):
+    widgets/inputs: ['qwen\\251018_MICKMUMPITZ_QWEN-EDIT_360_03.safetensors', 0.9]
+  [Node 1555] Set_model_360 (SetNode):
+    widgets/inputs: ['model_360']
+  [Node 1607] LoraLoaderModelOnly (LoraLoaderModelOnly):
+    widgets/inputs: ['qwen\\next-scene_lora-v2-3000.safetensors', 0.9]
+  [Node 1606] Set_model_nextScene (SetNode):
+    widgets/inputs: ['model_nextScene']
+  [Node 190] Set_model (SetNode):
+    widgets/inputs: ['model']
+  [Node 1482] LoraLoaderModelOnly (LoraLoaderModelOnly):
+    widgets/inputs: ['qwen\\qwen-studio-realism.safetensors', 0.7]
+  [Node 551] Note (Note):
+    widgets/inputs: ['https://huggingface.co/lightx2v/Qwen-Image-Lightning/blob/main/Qwen-Image-Lightning-4steps-V1.0-bf16.safetensors\n\n📁 ComfyUI/models/lora']
+  [Node 1985] Note (Note):
+    widgets/inputs: ['InSubject-0.5.safetensors\n\nhttps://huggingface.co/peteromallet/Qwen-Image-Edit-InSubject/tree/main\n\n📁 ComfyUI/models/lora']
+  [Node 1987] Note (Note):
+    widgets/inputs: ['251018_MICKMUMPITZ_QWEN-EDIT_360_03.safetensors\n\nDownload from the Patreon Post!\n\n📁 ComfyUI/models/lora']
+  [Node 568] Note (Note):
+    widgets/inputs: ['https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/tree/main/split_files/text_encoders\n\n📁 ComfyUI\\models\\clip\\qwen']
+  [Node 569] Note (Note):
+    widgets/inputs: ['https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/tree/main/split_files/vae\n\n📁 ComfyUI\\models\\vae']
+  [Node 1991] Note (Note):
+    widgets/inputs: ['Qwen-Image-Boreal (Boring Reality LoRA for Qwen)\n\nhttps://civitai.com/models/1927710?modelVersionId=2181880\n\n📁 ComfyUI/models/lora']
+  [Node 1993] Note (Note):
+    widgets/inputs: ['Studio Realism\n\nhttps://civitai.com/models/1972643/studio-realism\n\n📁 ComfyUI/models/lora']
+  [Node 546] LoaderGGUF (LoaderGGUF):
+    widgets/inputs: ['gguf\\Qwen-Image-Edit-2509-Q5_0.gguf']
+  [Node 1996] Note (Note):
+    widgets/inputs: [' next-scene_lora-v2-3000.safetensors\n\nhttps://huggingface.co/lovis93/next-scene-qwen-image-lora-2509/tree/main\n\n📁 ComfyUI/models/lora']
+  [Node 550] Note (Note):
+    widgets/inputs: ['https://huggingface.co/QuantStack/Qwen-Image-Edit-2509-GGUF/tree/main\n\n📁 ComfyUI\\models\\unet\\gguf']
