@@ -1,6 +1,6 @@
 {
   "last_node_id": 30,
-  "last_link_id": 32,
+  "last_link_id": 33,
   "nodes": [
     {
       "id": 1,
@@ -695,6 +695,11 @@
           "name": "images",
           "type": "IMAGE",
           "link": 24
+        },
+        {
+          "name": "filename_prefix",
+          "type": "STRING",
+          "link": 33
         }
       ],
       "properties": {},
@@ -776,7 +781,7 @@
     },
     {
       "id": 29,
-      "type": "StixxStoriesPromptBuilder",
+      "type": "StixxStoriesScriptParser",
       "pos": [380, 480],
       "size": [340, 240],
       "flags": {},
@@ -795,15 +800,45 @@
           "type": "STRING",
           "links": [31],
           "slot_index": 0
+        },
+        {
+          "name": "filename_prefix",
+          "type": "STRING",
+          "links": [33],
+          "slot_index": 1
+        },
+        {
+          "name": "scene_title",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 2
+        },
+        {
+          "name": "narration",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 3
+        },
+        {
+          "name": "total_scenes",
+          "type": "INT",
+          "links": [],
+          "slot_index": 4
+        },
+        {
+          "name": "scene_info",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 5
         }
       ],
       "properties": {
-        "Node name for S&R": "StixxStoriesPromptBuilder"
+        "Node name for S&R": "StixxStoriesScriptParser"
       },
       "widgets_values": [
-        "System Prompt:\nYou are an AI storyboard designer for a cartoon series called \"Stixx Stories\".\nYour job is to read the user's script (which may contain multiple scenes/episodes) and a final instruction indicating which specific scene, timestamp, or topic to focus on.\nGenerate a single detailed visual prompt describing the static starting frame of that requested scene.\n\nApply these character consistency guidelines:\n- \"Bob\" is a simple stick figure with a large round white circular head, small black dot eyes, thin curved black eyebrows, and a simple line mouth. Bob has messy spikes of brown hair and wears a basic flat-colored blue t-shirt.\n- \"Alice\" is a simple stick figure with a large round white circular head, small black dot eyes, thin curved black eyebrows, and a simple line mouth. Alice has long straight black hair and wears a basic flat-colored red dress.\n\nAesthetic Guidelines:\n- Style: A stick figure animation in the style of an animated educational webcomic or YouTube explainer video. Thick hand-drawn wobbly black outlines, flat colors, clean minimalist background with a soft warm color palette (light beige and soft green). No 3D shading, no realism, no text, no watermarks, no speech bubbles.\n\nOutput exactly one paragraph of prompt describing the static starting frame. Do not output anything else.",
-        null,
-        "Scene 1: THE MONSTER UNDER THE BED"
+        1,
+        "increment",
+        "System Prompt:\nYou are an AI storyboard designer for a cartoon series called \"Stixx Stories\".\nYour job is to read the user's script (narration and scene actions) and generate a single detailed visual prompt describing the static starting frame of the scene.\n\nApply these character consistency guidelines:\n- \"Bob\" is a simple stick figure with a large round white circular head, small black dot eyes, thin curved black eyebrows, and a simple line mouth. Bob has messy spikes of brown hair and wears a basic flat-colored blue t-shirt.\n- \"Alice\" is a simple stick figure with a large round white circular head, small black dot eyes, thin curved black eyebrows, and a simple line mouth. Alice has long straight black hair and wears a basic flat-colored red dress.\n\nAesthetic Guidelines:\n- Style: A stick figure animation in the style of an animated educational webcomic or YouTube explainer video. Thick hand-drawn wobbly black outlines, flat colors, clean minimalist background with a soft warm color palette (light beige and soft green). No 3D shading, no realism, no text, no watermarks, no speech bubbles.\n\nRead the user's script and output exactly one paragraph of prompt describing the static starting frame of the scene. Do not output anything else."
       ]
     },
     {
@@ -868,7 +903,8 @@
     [29, 2, 0, 22, 1, "STRING"],
     [30, 28, 0, 29, 0, "STRING"],
     [31, 29, 0, 2, 0, "STRING"],
-    [32, 30, 0, 2, 1, "OLLAMA_CONNECTIVITY"]
+    [32, 30, 0, 2, 1, "OLLAMA_CONNECTIVITY"],
+    [33, 29, 1, 18, 1, "STRING"]
   ],
   "groups": [],
   "config": {},

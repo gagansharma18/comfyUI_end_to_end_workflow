@@ -51,11 +51,10 @@ The workspace has been organized into modular directories for clean version cont
    * Copy `input/*.md` to `ComfyUI-Shared\input\`.
 2. **Verify Models**:
    Ensure all model files are placed in their respective `models/` subdirectories as specified in `walkthrough.md`.
-3. **Run GUI Test**:
+3. **Run Native GUI Batch Test**:
    * Load `workflows/workflow.json` in ComfyUI.
    * Choose `episode_2.md` in the **Load Text File 📄** node.
-   * Set `target_scene` in **Stixx Stories Prompt Builder 🛠️** (e.g., `Scene 1: THE MONSTER UNDER THE BED`).
-   * Queue prompt and verify image (Stage 1) and video (Stage 2) generation.
-4. **Run Batch/Stitching Test**:
-   * Double-click `run.bat` (or run `python scripts/run_pipeline.py input/episode_2.md` using the ComfyUI virtual env).
-   * Confirm that all scenes are processed sequentially, downloaded, and stitched together into `output/final_storyboard.mp4`.
+   * On the **Stixx Stories Script Parser 📋** node, make sure `scene_index` is `1` and set its generation control dropdown to `increment`.
+   * Set **Batch Count** to the number of scenes (e.g. `3` for testing).
+   * Click **Queue Prompt** and verify that all scenes are generated sequentially, saving dynamically named video files (e.g. `scene_1_THE_MONSTER_UNDER_THE_BED_XXXX.mp4`).
+
