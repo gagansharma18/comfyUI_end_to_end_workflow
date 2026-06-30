@@ -41,7 +41,7 @@ The workspace has been organized into modular directories for clean version cont
    * Modified `run_pipeline.py` to compile the generated scene videos using the bundled `ffmpeg` executable from ComfyUI's `imageio-ffmpeg` package.
    * Added `run.bat` for easy, double-clickable script generation and merging.
 4. **GitHub Sync**: All changes committed and pushed to:
-   `https://github.com/gagansharma18/comfyUI_end_to_end_workflow.git`
+   `https://github.com/gagansharma18/Stixx_images_videos_workflow.git`
 
 ---
 
