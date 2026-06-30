@@ -4,8 +4,6 @@ import os
 import sys
 import json
 import time
-import uuid
-import random
 import urllib.request
 import urllib.parse
 
@@ -245,9 +243,8 @@ def parse_script(file_path):
     # Split content by scene headers "## "
     scenes_raw = re.split(r"^##\s+", content, flags=re.MULTILINE)
     
-    visual_items = []
-    global_index = 1
-    
+    scenes = []
+    scene_index = 1
     for raw in scenes_raw:
         if not raw.strip():
             continue
@@ -258,8 +255,18 @@ def parse_script(file_path):
         
         # Clean title markdown formatting
         title = re.sub(r"[\*`\[\]]", "", title_line)
+        # Create a file-safe clean name
+        clean_title = re.sub(r"[^a-zA-Z0-9_\-]", "_", title).strip("_")
         
-        # Extract parent narration
+        # Extract visual description
+        visual_match = re.search(r"\[VISUAL:\s*(.*?)\]", raw, re.DOTALL | re.IGNORECASE)
+        if not visual_match:
+            # Fallback search for brackets in case label is different
+            visual_match = re.search(r"\[(.*?)(?:child|hominin|figure|adult|people|hunter|calendar).*?\]", raw, re.DOTALL | re.IGNORECASE)
+        
+        visual = visual_match.group(1).strip() if visual_match else ""
+        
+        # Extract narration
         narration_match = re.search(r"NARRATOR\s*\(V\.O\.\):.*?>\s*(.*?)(?=\n\n|\n[A-Z]|\Z)", raw, re.DOTALL | re.IGNORECASE)
         if not narration_match:
             narration_match = re.search(r">\s*(.*?)(?=\n\n|\Z)", raw, re.DOTALL)
@@ -270,35 +277,17 @@ def parse_script(file_path):
         narration = re.sub(r"^>\s*", "", narration, flags=re.MULTILINE)
         narration = re.sub(r"[\*`#]", "", narration)
         
-        # Find all visuals in this section
-        matches = list(re.finditer(r"\[VISUAL(?:\s*@\s*(\d+:\d+))?:\s*(.*?)\]", raw, re.DOTALL | re.IGNORECASE))
-        if not matches:
-            # Fallback search for brackets in case label is different
-            matches = list(re.finditer(r"\[(.*?)(?:child|hominin|figure|adult|people|hunter|calendar).*?\]", raw, re.DOTALL | re.IGNORECASE))
-            
-        for match in matches:
-            if match.lastindex and match.lastindex >= 2:
-                timestamp = match.group(1) or "0_00"
-                visual_text = match.group(2).strip()
-            else:
-                timestamp = "0_00"
-                visual_text = match.group(1).strip()
-                
-            # Create a file-safe clean name
-            clean_title = re.sub(r"[^a-zA-Z0-9_\-]", "_", title).strip("_")
-            clean_timestamp = timestamp.replace(":", "_")
-            
-            visual_items.append({
-                "index": global_index,
-                "title": f"{title} - @ {timestamp}",
-                "clean_title": f"{clean_title}_{clean_timestamp}",
-                "visual": visual_text,
-                "narration": narration,
-                "timestamp": timestamp
+        if visual or narration:
+            scenes.append({
+                "index": scene_index,
+                "title": title,
+                "clean_title": clean_title,
+                "visual": visual,
+                "narration": narration
             })
-            global_index += 1
+            scene_index += 1
             
-    return visual_items
+    return scenes
 
 def queue_prompt(prompt_workflow):
     data = json.dumps({"prompt": prompt_workflow}).encode('utf-8')
@@ -322,36 +311,6 @@ def download_file(filename, output_path):
         print(f"\nError downloading {filename}: {e}")
         return False
 
-def upload_image(file_path):
-    boundary = f"----WebKitFormBoundary{uuid.uuid4().hex}"
-    filename = os.path.basename(file_path)
-    
-    with open(file_path, "rb") as f:
-        file_content = f.read()
-        
-    part_headers = (
-        f"--{boundary}\r\n"
-        f'Content-Disposition: form-data; name="image"; filename="{filename}"\r\n'
-        f"Content-Type: image/png\r\n\r\n"
-    )
-    payload = part_headers.encode('utf-8') + file_content + f"\r\n--{boundary}--\r\n".encode('utf-8')
-    
-    req = urllib.request.Request(
-        f"{COMFYUI_URL}/upload/image",
-        data=payload,
-        headers={
-            'Content-Type': f'multipart/form-data; boundary={boundary}',
-            'Content-Length': str(len(payload))
-        }
-    )
-    try:
-        with urllib.request.urlopen(req) as response:
-            res_data = json.loads(response.read().decode('utf-8'))
-            return res_data.get("name", filename)
-    except Exception as e:
-        print(f"\nError uploading image to ComfyUI: {e}")
-        return filename
-
 def wait_for_prompt(prompt_id):
     print(f"Queueing to ComfyUI (ID: {prompt_id}). Processing", end="", flush=True)
     while True:
@@ -362,9 +321,9 @@ def wait_for_prompt(prompt_id):
         print(".", end="", flush=True)
         time.sleep(3)
 
-def run_stage1(scene):
+def run_scene(scene):
     print(f"\n==========================================")
-    print(f"🎬 Scene {scene['index']}: {scene['title']} (Stage 1)")
+    print(f"🎬 Scene {scene['index']}: {scene['title']}")
     print(f"==========================================")
     print(f"Visual: {scene['visual'][:100]}...")
     print(f"Narration: {scene['narration'][:100]}...")
@@ -375,120 +334,47 @@ def run_stage1(scene):
     # Load base prompt graph
     workflow = get_base_prompt_workflow()
     
-    # Filter for Stage 1 nodes only
-    stage1_nodes = ["1", "20", "21", "30", "2", "3", "6", "7", "8", "9", "10"]
-    workflow_stage1 = {k: v for k, v in workflow.items() if k in stage1_nodes}
-    
     # Update Ollama prompt
-    workflow_stage1["2"]["inputs"]["prompt"] = formatted_prompt
+    workflow["2"]["inputs"]["prompt"] = formatted_prompt
     
-    # Set seed for Stage 1 randomness
-    workflow_stage1["8"]["inputs"]["seed"] = random.randint(1, 1000000000)
+    # Set seeds for randomness
+    workflow["8"]["inputs"]["seed"] = random.randint(1, 1000000000)
+    workflow["16"]["inputs"]["seed"] = random.randint(1, 1000000000)
     
-    # Set output filename prefix
+    # Set output filename prefixes
     image_prefix = f"scene_{scene['index']}_{scene['clean_title']}_image"
-    workflow_stage1["10"]["inputs"]["filename_prefix"] = image_prefix
+    video_prefix = f"scene_{scene['index']}_{scene['clean_title']}_video"
+    workflow["10"]["inputs"]["filename_prefix"] = image_prefix
+    workflow["18"]["inputs"]["filename_prefix"] = video_prefix
     
-    # Queue Stage 1 prompt
-    print(">>> Running Stage 1: Image Generation")
-    response = queue_prompt(workflow_stage1)
+    # Queue prompt
+    response = queue_prompt(workflow)
     prompt_id = response["prompt_id"]
     
     # Wait for completion
     results = wait_for_prompt(prompt_id)
     
-    # Download the generated image
-    image_outputs = results.get("outputs", {}).get("10", {}).get("images", [])
-    local_image_path = None
+    # Download the generated assets
+    print("Downloading finished assets...")
+    downloaded_files = []
     
+    # Save Image download
+    image_outputs = results.get("outputs", {}).get("10", {}).get("images", [])
     for img in image_outputs:
         filename = img["filename"]
-        local_image_path = os.path.join(OUTPUT_DIR, f"scene_{scene['index']}_{scene['clean_title']}.png")
-        if download_file(filename, local_image_path):
-            print(f" Saved Image: {local_image_path}")
-            break
+        local_path = os.path.join(OUTPUT_DIR, f"scene_{scene['index']}_{scene['clean_title']}.png")
+        if download_file(filename, local_path):
+            print(f" Saved Image: {local_path}")
+            downloaded_files.append(local_path)
             
-    if not local_image_path or not os.path.exists(local_image_path):
-        print("❌ Error: Stage 1 image generation failed or could not be downloaded.")
-        return None
-        
-    # Get the text prompt generated by Ollama
-    ollama_outputs = results.get("outputs", {}).get("2", {})
-    prompt_text = ""
-    if "text" in ollama_outputs:
-        if isinstance(ollama_outputs["text"], list) and len(ollama_outputs["text"]) > 0:
-            prompt_text = ollama_outputs["text"][0]
-        elif isinstance(ollama_outputs["text"], str):
-            prompt_text = ollama_outputs["text"]
-            
-    # Fallback if Ollama output not found
-    if not prompt_text:
-        print("Warning: Could not retrieve generated text prompt from Ollama. Using visual description as fallback.")
-        prompt_text = scene['visual']
-    else:
-        print(f"Generated Visual Prompt: {prompt_text[:120]}...")
-        
-    return {
-        "local_image_path": local_image_path,
-        "prompt_text": prompt_text
-    }
-
-def run_stage2(scene, local_image_path, prompt_text):
-    print(f"\n==========================================")
-    print(f"🎬 Scene {scene['index']}: {scene['title']} (Stage 2)")
-    print(f"==========================================")
-    
-    # Stage 2: Video Generation
-    print(">>> Running Stage 2: Video Generation")
-    
-    # Upload the image back to ComfyUI input folder
-    print("Uploading image to ComfyUI...")
-    comfyui_image_name = upload_image(local_image_path)
-    
-    # Load base prompt graph
-    workflow = get_base_prompt_workflow()
-    
-    # Filter for Stage 2 nodes only
-    stage2_nodes = ["26", "27", "24", "25", "22", "23", "13", "14", "15", "16", "17", "18"]
-    workflow_stage2 = {k: v for k, v in workflow.items() if k in stage2_nodes}
-    
-    # Replace connection to Ollama text with actual string
-    workflow_stage2["22"]["inputs"]["text"] = prompt_text
-    
-    # Add LoadImage node (Node 99)
-    workflow_stage2["99"] = {
-        "class_type": "LoadImage",
-        "inputs": {
-            "image": comfyui_image_name
-        }
-    }
-    
-    # Connect Node 15 to Node 99
-    workflow_stage2["15"]["inputs"]["image"] = ["99", 0]
-    
-    # Set seed for Stage 2 randomness
-    workflow_stage2["16"]["inputs"]["seed"] = random.randint(1, 1000000000)
-    
-    # Set output filename prefix
-    video_prefix = f"scene_{scene['index']}_{scene['clean_title']}_video"
-    workflow_stage2["18"]["inputs"]["filename_prefix"] = video_prefix
-    
-    # Queue Stage 2 prompt
-    response = queue_prompt(workflow_stage2)
-    prompt_id = response["prompt_id"]
-    
-    # Wait for completion
-    results = wait_for_prompt(prompt_id)
-    
-    # Download the generated video
-    downloaded_files = []
+    # Video Combine download
     video_outputs = results.get("outputs", {}).get("18", {}).get("gifs", [])
     for vid in video_outputs:
         filename = vid["filename"]
-        local_video_path = os.path.join(OUTPUT_DIR, f"scene_{scene['index']}_{scene['clean_title']}.mp4")
-        if download_file(filename, local_video_path):
-            print(f" Saved Video: {local_video_path}")
-            downloaded_files.append(local_video_path)
+        local_path = os.path.join(OUTPUT_DIR, f"scene_{scene['index']}_{scene['clean_title']}.mp4")
+        if download_file(filename, local_path):
+            print(f" Saved Video: {local_path}")
+            downloaded_files.append(local_path)
             
     return downloaded_files
 
@@ -508,55 +394,15 @@ def main():
     scenes = parse_script(script_file)
     print(f"Found {len(scenes)} scenes to generate.")
     
-    # Stage 1: Generate all images first
-    print("\n==========================================")
-    print("🚀 STARTING STAGE 1: IMAGE GENERATION FOR ALL SCENES")
-    print("==========================================")
-    
-    stage1_results = {}
-    for scene in scenes:
-        try:
-            result = run_stage1(scene)
-            if result:
-                stage1_results[scene['index']] = result
-        except Exception as e:
-            print(f"\n❌ Error processing Stage 1 for Scene {scene['index']}: {e}")
-            
-    if not stage1_results:
-        print("\n❌ No Stage 1 images were generated successfully. Exiting.")
-        sys.exit(1)
-        
-    # Prompt user once to proceed to Stage 2 for all scenes
-    user_choice = ""
-    while user_choice not in ["y", "yes", "n", "no"]:
-        user_choice = input(f"\nAll Stage 1 images generated successfully ({len(stage1_results)}/{len(scenes)}). Do you want to proceed with Stage 2 (Video Animation) for all scenes? (y/n) [default: y]: ").strip().lower()
-        if user_choice == "":
-            user_choice = "y"
-            
-    if user_choice in ["n", "no"]:
-        print("\nSkipping Stage 2 for all scenes. Exiting.")
-        sys.exit(0)
-        
-    # Stage 2: Generate all animations
-    print("\n==========================================")
-    print("🚀 STARTING STAGE 2: VIDEO ANIMATION FOR ALL SCENES")
-    print("==========================================")
-    
     video_paths = []
-    for scene in scenes:
-        idx = scene['index']
-        if idx not in stage1_results:
-            print(f"\nSkipping Scene {idx} because Stage 1 failed.")
-            continue
-            
+    for i, scene in enumerate(scenes):
         try:
-            result = stage1_results[idx]
-            downloaded = run_stage2(scene, result['local_image_path'], result['prompt_text'])
+            downloaded = run_scene(scene)
             for path in downloaded:
                 if path.endswith(".mp4"):
                     video_paths.append(path)
         except Exception as e:
-            print(f"\n❌ Error processing Stage 2 for Scene {idx}: {e}")
+            print(f"\n❌ Error processing Scene {scene['index']}: {e}")
             print("Skipping to next scene...")
             
     print("\n🎉 Full script animation execution complete!")
@@ -606,4 +452,5 @@ def main():
             print(f"❌ Failed to combine videos: {combine_err}")
 
 if __name__ == "__main__":
+    import random
     main()

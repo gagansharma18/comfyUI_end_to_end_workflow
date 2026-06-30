@@ -113,8 +113,18 @@ Read the user's script and output exactly one paragraph of prompt describing the
             
             # Clean title markdown formatting
             title = re.sub(r"[\*`\[\]]", "", title_line)
+            # Create a file-safe clean name
+            clean_title = re.sub(r"[^a-zA-Z0-9_\-]", "_", title).strip("_")
             
-            # Extract parent narration
+            # Extract visual description
+            visual_match = re.search(r"\[VISUAL:\s*(.*?)\]", raw, re.DOTALL | re.IGNORECASE)
+            if not visual_match:
+                # Fallback search for brackets in case label is different
+                visual_match = re.search(r"\[(.*?)(?:child|hominin|figure|adult|people|hunter|calendar).*?\]", raw, re.DOTALL | re.IGNORECASE)
+            
+            visual = visual_match.group(1).strip() if visual_match else ""
+            
+            # Extract narration
             narration_match = re.search(r"NARRATOR\s*\(V\.O\.\):.*?>\s*(.*?)(?=\n\n|\n[A-Z]|\Z)", raw, re.DOTALL | re.IGNORECASE)
             if not narration_match:
                 narration_match = re.search(r">\s*(.*?)(?=\n\n|\Z)", raw, re.DOTALL)
@@ -125,29 +135,12 @@ Read the user's script and output exactly one paragraph of prompt describing the
             narration = re.sub(r"^>\s*", "", narration, flags=re.MULTILINE)
             narration = re.sub(r"[\*`#]", "", narration)
             
-            # Find all visuals in this section
-            matches = list(re.finditer(r"\[VISUAL(?:\s*@\s*(\d+:\d+))?:\s*(.*?)\]", raw, re.DOTALL | re.IGNORECASE))
-            if not matches:
-                # Fallback search for brackets in case label is different
-                matches = list(re.finditer(r"\[(.*?)(?:child|hominin|figure|adult|people|hunter|calendar).*?\]", raw, re.DOTALL | re.IGNORECASE))
-                
-            for match in matches:
-                if match.lastindex and match.lastindex >= 2:
-                    timestamp = match.group(1) or "0_00"
-                    visual_text = match.group(2).strip()
-                else:
-                    timestamp = "0_00"
-                    visual_text = match.group(1).strip()
-                    
-                # Create a file-safe clean name
-                clean_title = re.sub(r"[^a-zA-Z0-9_\-]", "_", title).strip("_")
-                clean_timestamp = timestamp.replace(":", "_")
-                
+            if visual or narration:
                 scenes.append({
                     "index": parsed_index,
-                    "title": f"{title} - @ {timestamp}",
-                    "clean_title": f"{clean_title}_{clean_timestamp}",
-                    "visual": visual_text,
+                    "title": title,
+                    "clean_title": clean_title,
+                    "visual": visual,
                     "narration": narration
                 })
                 parsed_index += 1
